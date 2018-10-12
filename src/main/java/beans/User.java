@@ -1,9 +1,7 @@
 package beans;
 
-import org.hibernate.criterion.Projection;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Map;
@@ -35,9 +33,11 @@ public class User {
     private Set<Message> messages=new HashSet<>();
 
     @OneToMany
+    @Column(columnDefinition = "participe")
     private Set<Project> participeProjects=new HashSet<>();
 
     @OneToMany
+    @Column(columnDefinition = "create")
     private Set<Project> createdProjects=new HashSet<>();
 
     @ElementCollection
