@@ -19,8 +19,15 @@ public class Controller {
         return "index";
     }
 
-    @RequestMapping(value="/login",method = RequestMethod.GET)
-    public String login (Local locale, Model model){
+
+    @RequestMapping(value="/login",method = RequestMethod.POST )
+    public String login(Locale locale, Model model) {
         return "login";
     }
+
+    @RequestMapping(value="/login",method = RequestMethod.GET )
+    public String loginGet(Locale locale, Model model) {
+        return login(locale,model);
+    }
+
 }
