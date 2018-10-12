@@ -12,15 +12,10 @@
     <title>KickerStart -- Index</title>
 </head>
 <body>
+<header>
+    <h1>KickerStart</h1>
 
-<form method="post" action="/login">
-    login : <br/><input type="text" size="10" name="login">
-    <br/>
-    password : <br/><input type="password" size="10" name="motdepasse">
-    <br/>
-    <button type="submit" name="TODO" value="log">OK</button>
-
-</form>
+</header>
 
 </body>
 </html>
