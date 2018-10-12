@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
@@ -33,9 +32,8 @@
 <main>
     <div class="container-fluid">
         <div class="row">
-            <c:forEach>
+            <c:forEach items="${mainProj}" var="c">
                 <div class="col-xs-3">
-
                 </div>
             </c:forEach>
         </div>

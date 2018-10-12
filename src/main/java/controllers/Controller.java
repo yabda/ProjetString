@@ -14,13 +14,12 @@ import java.util.Locale;
 @RequestMapping("")
 public class Controller {
 
-    //  "/index"
     @RequestMapping(value="/",method = RequestMethod.GET)
     public String index(Locale locale, Model model) {
         return "index";
     }
 
-    @RequestMapping(value="/login",method = RequestMethod.POST)
+    @RequestMapping(value="/login",method = RequestMethod.GET)
     public String login (Local locale, Model model){
         return "login";
     }
