@@ -1,5 +1,6 @@
 package controllers;
 
+import org.springframework.cglib.core.Local;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,5 +18,10 @@ public class Controller {
     @RequestMapping(value="/",method = RequestMethod.GET)
     public String index(Locale locale, Model model) {
         return "index";
+    }
+
+    @RequestMapping(value="/login",method = RequestMethod.POST)
+    public String login (Local locale, Model model){
+        return "login";
     }
 }
