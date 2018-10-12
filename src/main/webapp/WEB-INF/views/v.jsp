@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: asl
+  beans.User: asl
   Date: 12/10/2018
   Time: 11:58
   To change this template use File | Settings | File Templates.
