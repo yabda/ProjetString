@@ -1,5 +1,6 @@
 package beans;
 
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -32,9 +33,11 @@ public class User {
     private Set<Message> messages=new HashSet<>();
 
     @OneToMany
+    @Column(columnDefinition = "participe")
     private Set<Project> participeProjects=new HashSet<>();
 
     @OneToMany
+    @Column(columnDefinition = "create")
     private Set<Project> createdProjects=new HashSet<>();
 
     @ElementCollection
