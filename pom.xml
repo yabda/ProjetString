@@ -12,7 +12,6 @@
     <properties>
         <spring-version>4.3.9.RELEASE</spring-version>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
