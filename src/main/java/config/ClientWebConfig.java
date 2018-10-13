@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
@@ -27,6 +28,8 @@ import java.util.Properties;
 @Configuration
 @ComponentScan(basePackages = {"services, controllers" +
         ""})
+
+@EnableJpaRepositories(basePackages = "repository")
 @EnableTransactionManagement
 public class ClientWebConfig extends WebMvcConfigurerAdapter {
 
