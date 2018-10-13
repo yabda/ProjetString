@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Entity
-public class Project {
+public class Project implements Comparable<Project>{
 
     @Id
     @GeneratedValue
@@ -189,4 +189,10 @@ public class Project {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    @Override
+    public int compareTo(Project p) {
+        return (p.createdAt.after(this.createdAt))?1:0;
+    }
+
 }

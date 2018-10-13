@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
@@ -25,7 +24,8 @@
             </div>
             <div class="col-md-1">
                 <c:if test="${log!=true}">
-                    <a href="/login"><i class="fas fa-sign-in-alt fa-3x"></i></a>
+                    <a href="/login"><i class="fas fa-sign-in-alt fa-3x"></i>
+                    </a>
                 </c:if>
                 <c:if test="${log==true}">
                     <a href="#"><i class="fas fa-plus fa-3x"></i></a>
