@@ -21,7 +21,7 @@ public class Counterpart {
     private String description;
 
     @OneToOne
-    private Project belongProjet;
+    private Project belongProject;
 
     public Counterpart() {
     }
@@ -64,11 +64,11 @@ public class Counterpart {
         this.description = description;
     }
 
-    public Project getBelongProjet() {
-        return belongProjet;
+    public Project getBelongProject() {
+        return belongProject;
     }
 
     public void setBelongProjet(Project belongProjet) {
-        this.belongProjet = belongProjet;
+        this.belongProject = belongProjet;
     }
 }

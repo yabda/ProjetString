@@ -27,7 +27,7 @@ public class Project implements Comparable<Project>{
     private int current;
 
     @Column(name = "deadLine")
-    private int deadLine;
+    private Date deadLine;
 
     @Column(name = "createdAt")
     private Date createdAt;
@@ -60,7 +60,7 @@ public class Project implements Comparable<Project>{
     public Project() {
     }
 
-    public Project(String title, String description, int goal, int deadLine) {
+    public Project(String title, String description, int goal, Date deadLine) {
         this.title = title;
         this.description = description;
         this.goal = goal;
@@ -110,12 +110,20 @@ public class Project implements Comparable<Project>{
         this.current = current;
     }
 
-    public int getDeadLine() {
+    public Date getDeadLine() {
         return deadLine;
     }
 
-    public void setDeadLine(int deadLine) {
+    public void setDeadLine(Date deadLine) {
         this.deadLine = deadLine;
+    }
+
+    public Map<User, Float> getParticipations() {
+        return participations;
+    }
+
+    public void setParticipations(Map<User, Float> participations) {
+        this.participations = participations;
     }
 
     public Date getCreatedAt() {
