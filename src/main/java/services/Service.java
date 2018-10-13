@@ -6,5 +6,6 @@ import java.util.Set;
 
 public interface Service {
 
-    Set<Project> getAllProj();
+    //
+    // Set<Project> getAllProj();
 }

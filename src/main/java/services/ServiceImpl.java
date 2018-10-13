@@ -17,11 +17,9 @@ import beans.Project;
 @Service
 public class ServiceImpl {
 
-    @Autowired
-    ProjectRepo pR;
 
-    @Autowired
-    EntityManager em;
+    public ProjectRepo pR;
+
 
     public Set<Project> getAllProj(){
 
