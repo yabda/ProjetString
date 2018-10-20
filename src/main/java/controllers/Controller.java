@@ -1,28 +1,27 @@
 package controllers;
 
 import beans.Project;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import services.ServiceImpl;
+import services.CRUDService;
 
 
-import java.text.DateFormat;
+import javax.annotation.Resource;
 import java.util.*;
 
 @org.springframework.stereotype.Controller
 @RequestMapping("")
 public class Controller {
 
-    @Autowired
-    ServiceImpl serviceImpl;
+    @Resource(name = "projectService")
+    private CRUDService<Project> pS;
 
     @RequestMapping(value="/",method = RequestMethod.GET)
     public String index(Locale locale, Model model) {
 
-
+        List<Project> frontProjects = pS.findAll(3);
+        model.addAttribute("frontProjects", frontProjects);
         return "index";
     }
 

@@ -47,7 +47,7 @@
 <main>
     <div class="container-fluid">
         <div class="row" id="front-projects">
-            <c:forEach items="${project_front}" var="p">
+            <c:forEach items="${frontProjects}" var="p">
                 <div class="col-md-4">
                     <div>
                         <h2>${p.getTitle()}</h2>
