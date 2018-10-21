@@ -12,7 +12,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @Service("userService")
-public class UserService implements CRUDService<User> {
+public class UserService implements UserServiceInterface {
     @PersistenceContext
     private EntityManager em;
 
@@ -72,6 +72,14 @@ public class UserService implements CRUDService<User> {
 
     @Override
     public int update(User user) {
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("SHA-1");
+        }
+        catch(NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        user.setPassword(new String(md.digest(user.getPassword().getBytes())));
         Query q = em.createQuery("update User set name = :name and password = :password and createdAt = :createdAt and updatedAt = :updatedAt" +
                 " where id = :id");
         q.setParameter("id", user.getId());

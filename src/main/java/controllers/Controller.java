@@ -1,10 +1,14 @@
 package controllers;
 
+import beans.Counterpart;
 import beans.Project;
+import beans.User;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import services.CRUDService;
+import services.CounterpartServiceInterface;
+import services.UserServiceInterface;
 
 
 import javax.annotation.Resource;
@@ -16,6 +20,10 @@ public class Controller {
 
     @Resource(name = "projectService")
     private CRUDService<Project> pS;
+    @Resource(name = "userService")
+    private UserServiceInterface uS;
+    @Resource(name = "counterpartService")
+    private CounterpartServiceInterface cS;
 
     @RequestMapping(value="/",method = RequestMethod.GET)
     public String index(Locale locale, Model model) {
