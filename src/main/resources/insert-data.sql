@@ -11,6 +11,7 @@ INSERT INTO Category(id,name) VALUES (5,'Jeux');
 
 INSERT INTO Project(id,title,description,goal,current,deadLine,createdAt,failed,belonguser_id,category_id) VALUES (1,'Parrainez un Panda','Nous accueillons notamment un groupe de panda geant, espèce classée en danger critique d’extinction',10000,0,'2018-12-13','2018-10-13',0,2,1);
 INSERT INTO Project(id,title,description,goal,current,deadLine,createdAt,failed,belonguser_id,category_id) VALUES (2,'Parrainez un Cochon','Nous accueillons notamment un groupe de gros porcin, espèce pas du tout classée en danger critique d’extinction',10000,0,'2018-12-14','2018-10-14',0,2,1);
+INSERT INTO Project(id,title,description,goal,current,deadLine,createdAt,failed,belonguser_id,category_id) VALUES (3,'Parrainez un Poulet','Nous accueillons notamment un groupe de petit poulets, espèce pas du tout classée en danger critique d’extinction, et qui pond des oeufs',10000,0,'2018-12-15','2018-10-15',0,2,1);
 
 INSERT INTO CATEGORY_PROJECT(category_id,projects_id) VALUES (1,1);
 
