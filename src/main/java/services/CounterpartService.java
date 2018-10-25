@@ -36,7 +36,7 @@ public class CounterpartService implements CounterpartServiceInterface {
 
     @Override
     public Counterpart getFromId(int id) {
-        Query q = em.createQuery("from Counterpart c where id = :id");
+        Query q = em.createQuery("from Counterpart c where c.id = :id");
         q.setParameter("id", id);
         q.setMaxResults(1);
         if (q.getResultList().size() > 0)
@@ -58,8 +58,8 @@ public class CounterpartService implements CounterpartServiceInterface {
 
     @Override
     public int update(Counterpart counterpart) {
-        Query q = em.createQuery("update Counterpart set price = :price and name = :name and description = :description" +
-                " where id = :id");
+        Query q = em.createQuery("update Counterpart c set c.price = :price , c.name = :name , c.description = :description" +
+                " where c.id = :id");
         q.setParameter("id", counterpart.getId());
         q.setParameter("price", counterpart.getPrice());
         q.setParameter("name", counterpart.getName());

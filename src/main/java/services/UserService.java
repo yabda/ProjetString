@@ -19,13 +19,13 @@ public class UserService implements UserServiceInterface {
 
     @Override
     public List<User> findAll() {
-        Query q = em.createQuery("select u from User u order by  u.createdAt desc");
+        Query q = em.createQuery("select u from User u order by u.createdAt desc");
         return q.getResultList();
     }
 
     @Override
     public List<User> findAll(int limit) {
-        Query q = em.createQuery("select u from User u order by  u.createdAt desc");
+        Query q = em.createQuery("select u from User u order by u.createdAt desc");
         q.setMaxResults(limit);
         return q.getResultList();
     }
@@ -61,7 +61,7 @@ public class UserService implements UserServiceInterface {
 
     @Override
     public User getFromId(int id) {
-        Query q = em.createQuery("from User u where id = :id");
+        Query q = em.createQuery("from User u where u.id = :id");
         q.setParameter("id", id);
         q.setMaxResults(1);
         if (q.getResultList().size() > 0)
@@ -80,7 +80,8 @@ public class UserService implements UserServiceInterface {
             e.printStackTrace();
         }
         user.setPassword(new String(md.digest(user.getPassword().getBytes())));
-        Query q = em.createQuery("update User set name = :name and password = :password and createdAt = :createdAt and updatedAt = :updatedAt" +
+        Query q = em.createQuery("update User u set u.name = :name , u.password = :password , u.createdAt = :createdAt," +
+                "  u.updatedAt = :updatedAt" +
                 " where id = :id");
         q.setParameter("id", user.getId());
         q.setParameter("name", user.getName());
@@ -93,7 +94,7 @@ public class UserService implements UserServiceInterface {
 
     @Override
     public int destroy(int id) {
-        Query q = em.createQuery("delete User where id = :id");
+        Query q = em.createQuery("delete User u where u.id = :id");
         q.setParameter("id", id);
         return q.executeUpdate();
     }
