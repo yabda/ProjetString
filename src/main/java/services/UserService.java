@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.List;
 
 @Service("userService")
@@ -43,7 +45,7 @@ public class UserService implements UserServiceInterface {
         em.persist(user);
     }
 
-    public Boolean isValid(String name, String password) {
+    public User isValid(String name, String password) {
         MessageDigest md = null;
         try {
             md = MessageDigest.getInstance("SHA-1");
@@ -53,10 +55,10 @@ public class UserService implements UserServiceInterface {
         }
         List<User> users = findAll();
         for (User u: users) {
-            if (u.getName().equals(name) && u.getPassword().equals(new String(md.digest(password.getBytes()))))
-                return false;
+            if (u.getName().equals(name) && Arrays.equals(DatatypeConverter.parseHexBinary(u.getPassword()), md.digest(password.getBytes())))
+                return u;
         }
-        return false;
+        return null;
     }
 
     @Override

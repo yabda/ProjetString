@@ -26,20 +26,18 @@
         </div>
     </div>
 </header>
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
     <div class="container-fluid">
-        <div class="navbar-header">
-
-        </div>
-        <ul class="nav navbar-nav">
-            <c:if test="${log!=true}">
-                <li><a href="/login"><i class="fas fa-sign-in-alt fa-2x"></i></a></li>
+        <ul class="nav navbar-nav mr-auto"></ul>
+        <ul class="nav navbar-nav" id="right-bar">
+            <c:if test="${sessionScope.user == null}">
+                <li class="nav-item"><a href="/login"><i class="fas fa-sign-in-alt fa-2x"></i></a></li>
             </c:if>
-            <c:if test="${log==true}">
-                <li>${login.getName()}</li>
-                <li><a href=""><i class="fas fa-plus fa-2x"></i></a></li>
-                <li><a href=""><i class="fas fa-cogs fa-2x"></i></a></li>
-                <li><a href="/logout"><i class="fas fa-sign-out-alt fa-2x"></i></a></li>
+            <c:if test="${sessionScope.user != null}">
+                <li class="nav-item">${sessionScope.user.getName()}</li>
+                <li class="nav-item"><a href="#"><i class="fas fa-plus fa-2x"></i></a></li>
+                <li class="nav-item"><a href="#"><i class="fas fa-cogs fa-2x"></i></a></li>
+                <li class="nav-item"><a href="/logout"><i class="fas fa-sign-out-alt fa-2x"></i></a></li>
             </c:if>
         </ul>
     </div>

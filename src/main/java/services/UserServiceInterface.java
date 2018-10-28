@@ -13,5 +13,5 @@ public interface UserServiceInterface {
     int update(User t);
     int destroy(int id);
 
-    public Boolean isValid(String name, String password);
+    public User isValid(String name, String password);
 }

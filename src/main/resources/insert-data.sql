@@ -1,7 +1,7 @@
-INSERT INTO user(id,name,password,createdAt) VALUES (1,'Admin','1234','2018-10-13');
-INSERT INTO user(id,name,password,createdAt) VALUES (2,'Charlotte','1234','2018-10-13');
-INSERT INTO user(id,name,password,createdAt) VALUES (3,'Yanis','1234','2018-10-13');
-INSERT INTO user(id,name,password,createdAt) VALUES (4,'Etienne','1234','2018-10-13');
+INSERT INTO user(id,name,password,createdAt) VALUES (1,'Admin','7110eda4d09e062aa5e4a390b0a572ac0d2c0220','2018-10-13');
+INSERT INTO user(id,name,password,createdAt) VALUES (2,'Charlotte',SHA1('1234'),'2018-10-13');
+INSERT INTO user(id,name,password,createdAt) VALUES (3,'Yanis',SHA1('1234'),'2018-10-13');
+INSERT INTO user(id,name,password,createdAt) VALUES (4,'Etienne',SHA1('1234'),'2018-10-13');
 
 INSERT INTO Category(id,name) VALUES (1,'Solidaire et citoyen');
 INSERT INTO Category(id,name) VALUES (2,'Technologie');
