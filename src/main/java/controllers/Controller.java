@@ -4,7 +4,9 @@ import beans.Counterpart;
 import beans.Project;
 import beans.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,10 +44,10 @@ public class Controller {
     }
 
 
-    @RequestMapping(value="/projectX",method = RequestMethod.GET)
-    public String projectX(HttpSession session, Locale locale, Model model){
-        Project p = pS.getFromId(1);
-        model.addAttribute("project",p);
+    @RequestMapping(value="/Project/{projectId}")
+    public String project(@PathVariable String projectId, HttpSession session, Locale locale, Model model){
+        Project p = pS.getFromId(Integer.parseInt(projectId));
+        model.addAttribute("project",   p);
         return "projectX";
     }
 
