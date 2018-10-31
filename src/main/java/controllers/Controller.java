@@ -8,9 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import services.CRUDService;
-import services.CounterpartServiceInterface;
-import services.UserServiceInterface;
+import services.*;
 
 
 import javax.annotation.Resource;
@@ -27,7 +25,9 @@ public class Controller {
     private User user;
 
     @Resource(name = "projectService")
-    private CRUDService<Project> pS;
+    private IProjectService pS;
+
+
     @Resource(name = "userService")
     private UserServiceInterface uS;
     @Resource(name = "counterpartService")
@@ -44,8 +44,8 @@ public class Controller {
 
     @RequestMapping(value="/projectX",method = RequestMethod.GET)
     public String projectX(HttpSession session, Locale locale, Model model){
-        Project test = pS.getFromId(1);
-        model.addAttribute("project",test);
+        Project p = pS.getFromId(1);
+        model.addAttribute("project",p);
         return "projectX";
     }
 
@@ -54,8 +54,14 @@ public class Controller {
         List<Project> frontProjects = pS.findAll(1);
         Project p = frontProjects.get(0);
 
+
         model.addAttribute("project",p);
-        p.setCurrent(p.getCurrent()+donation);
+        System.out.println("user : " + session.getAttribute("user"));
+        pS.donation((User)session.getAttribute("user"),p,donation);
+        //
+        // Recupère l'utilisateur loggué
+        // p.getUsersParticipation().add();
+
         pS.update(p);
         return "redirect:/projectX";
     }

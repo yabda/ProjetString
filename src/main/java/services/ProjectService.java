@@ -1,16 +1,21 @@
 package services;
 
 import beans.Project;
+import beans.User;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Service("projectService")
-public class ProjectService implements CRUDService<Project> {
+public class ProjectService implements IProjectService {
     @PersistenceContext
     private EntityManager em;
 
@@ -72,4 +77,35 @@ public class ProjectService implements CRUDService<Project> {
         q.setParameter("id", id);
         return q.executeUpdate();
     }
+
+    public int donation(User u, Project p, int val){
+
+        EntityGraph<Project> eg = em.createEntityGraph(Project.class);
+        eg.addSubgraph("usersParticipation");
+
+
+        Hibernate.initialize(p.getUsersParticipation());
+        if (p.getCurrent()<p.getGoal() || val <=0 || p.getDeadLine().after(new Date())){
+            if (p.getCurrent()+val <= p.getGoal()) {
+                p.setCurrent(p.getCurrent()+val);
+            }
+            else
+            {
+                p.setCurrent(p.getGoal());
+            }
+            Set<User> participators = p.getUsersParticipation();
+            participators.add(u);
+            p.setUsersParticipation(participators);
+            //Maps<User,float> partiipations = p.getParticipations();
+            //participators.
+
+        }
+        else {
+
+             return -1;  // null donation or project already over
+        }
+
+        return 0;
+    }
+
 }

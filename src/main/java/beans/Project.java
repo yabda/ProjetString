@@ -1,5 +1,7 @@
 package beans;
 
+import org.hibernate.annotations.Fetch;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -42,7 +44,7 @@ public class Project implements Comparable<Project>{
     @OneToOne
     private User belongUser;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<User> usersParticipation=new HashSet<>();
 
     @OneToMany

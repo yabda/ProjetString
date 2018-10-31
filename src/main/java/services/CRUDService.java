@@ -1,5 +1,8 @@
 package services;
 
+import beans.Project;
+import beans.User;
+
 import java.util.List;
 
 public interface CRUDService<T> {
