@@ -20,7 +20,7 @@ public class Counterpart {
     @Column(name = "description")
     private String description;
 
-    @OneToOne
+    @ManyToOne
     private Project belongProject;
 
     public Counterpart() {

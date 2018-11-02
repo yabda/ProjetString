@@ -22,6 +22,18 @@
 <div>
     On y est presque, le projet a déjà récolté ${project.getCurrent()} sur ${project.getGoal()}€
 </div>
+
+<div>Ce projet est déjà suppporté par :
+    <ul>
+        <c:forEach items="${project.getParticipations().values().toArray()}" var="participations">
+            <div class="col-md-4">
+                <li>${participations}</li>
+            </div>
+        </c:forEach>
+
+    </ul>
+
+</div>
 <div>
     <h2>PARRAINER LE PROJET</h2>
     <form action="/donation" method="POST">

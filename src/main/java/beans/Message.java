@@ -14,13 +14,13 @@ public class Message {
     private String content;
 
 
-    @OneToOne
+    @OneToOne(mappedBy = "belongMessage")
     private Answer belongAnswer;
 
-    @OneToOne
+    @ManyToOne
     private User belongUser;
 
-    @OneToOne
+    @ManyToOne
     private Project belongProject;
 
     public Message() {

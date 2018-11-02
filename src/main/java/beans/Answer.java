@@ -13,10 +13,10 @@ public class Answer {
     @Column(name = "content")
     private String content;
 
-    @OneToOne
+    @ManyToOne
     private User belongUser;
 
-    @OneToOne
+    @ManyToOne
     private Message belongMessage;
 
 //CONSTRUCTORS

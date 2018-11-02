@@ -63,35 +63,32 @@ public class UserService implements UserServiceInterface {
 
     @Override
     public User getFromId(int id) {
-        Query q = em.createQuery("from User u where u.id = :id");
+        Query q = em.createQuery("select u from User u where u.id = :id");
         q.setParameter("id", id);
         q.setMaxResults(1);
-        if (q.getResultList().size() > 0)
-            return (User)q.getResultList().get(0);
+        List<User> tmp = q.getResultList();
+        if (tmp.size() > 0)
+            return tmp.get(0);
         else
             return null;
     }
 
     @Override
     public int update(User user) {
-        MessageDigest md = null;
-        try {
-            md = MessageDigest.getInstance("SHA-1");
-        }
-        catch(NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        user.setPassword(new String(md.digest(user.getPassword().getBytes())));
-        Query q = em.createQuery("update User u set u.name = :name , u.password = :password , u.createdAt = :createdAt," +
+
+        User u = em.merge(user);
+        return (user!=u?0:-1);
+        /*Query q = em.createQuery("update User u set u.name = :name , u.password = :password , u.createdAt = :createdAt," +
                 "  u.updatedAt = :updatedAt" +
                 " where id = :id");
         q.setParameter("id", user.getId());
         q.setParameter("name", user.getName());
         q.setParameter("password", user.getPassword());
-        q.setParameter("createdAt", user.getCreatedAt());
+        q.setParameter("createdAt", user.
+        getCreatedAt());
         q.setParameter("updatedAt", user.getUpdatedAt());
 
-        return q.executeUpdate();
+        return q.executeUpdate();*/
     }
 
     @Override

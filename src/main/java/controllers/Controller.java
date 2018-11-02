@@ -47,25 +47,19 @@ public class Controller {
     @RequestMapping(value="/Project/{projectId}")
     public String project(@PathVariable String projectId, HttpSession session, Locale locale, Model model){
         Project p = pS.getFromId(Integer.parseInt(projectId));
-        model.addAttribute("project",   p);
+        model.addAttribute("project",p);
         return "projectX";
     }
 
     @RequestMapping(value="/donation",method = RequestMethod.POST)
     public String donation(@RequestParam("pId") int pId,@RequestParam("donationValue") int donation, HttpSession session, Locale locale, Model model){
-        List<Project> frontProjects = pS.findAll(1);
-        Project p = frontProjects.get(0);
-
-
+        Project p = pS.getFromId(pId);
+        User uSess = (User)session.getAttribute("user");
+        User u = uS.getFromId(uSess.getId());
         model.addAttribute("project",p);
-        System.out.println("user : " + session.getAttribute("user"));
-        pS.donation((User)session.getAttribute("user"),p,donation);
-        //
-        // Recupère l'utilisateur loggué
-        // p.getUsersParticipation().add();
+        pS.donation(u,p,donation);
 
-        pS.update(p);
-        return "redirect:/projectX";
+        return "redirect:/Project/"+p.getId();
     }
 
     @RequestMapping(value="/login", method = RequestMethod.POST )
