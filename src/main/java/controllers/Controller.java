@@ -68,6 +68,13 @@ public class Controller {
         return "redirect:/projectX";
     }
 
+    @RequestMapping(value="/login",method = RequestMethod.GET )
+    public String loginGet(HttpSession session, Locale locale, Model model) {
+        if (session.getAttribute("user") == null)
+            return "user/login";
+        return "redirect:/";
+    }
+
     @RequestMapping(value="/login", method = RequestMethod.POST )
     public String login(@RequestParam("name") String name, @RequestParam("password") String password, HttpSession session, Locale locale, Model model) {
         if (uS.isValid(name, password) != null) {
@@ -81,18 +88,35 @@ public class Controller {
         }
     }
 
-    @RequestMapping(value="/login",method = RequestMethod.GET )
-    public String loginGet(HttpSession session, Locale locale, Model model) {
-        if (session.getAttribute("user") == null)
-            return "user/login";
-        return "redirect:/";
-    }
-
     @RequestMapping(value="/logout",method = RequestMethod.GET )
     public String logout(HttpSession session, Locale locale, Model model) {
         session.removeAttribute("user");
         user = null;
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String registerGet(HttpSession session, Locale locale, Model model) {
+        if (session.getAttribute("user") != null)
+            return "redirect:/";
+        return "user/register";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String register(@RequestParam("name") String name, @RequestParam("password") String password, @RequestParam("repeat-password") String repeat_password, HttpSession session, Locale locale, Model model) {
+        if (session.getAttribute("user") != null)
+            return "redirect:/";
+
+        if (!repeat_password.equals(password) || name.length() <= 0)
+            model.addAttribute("badRegister", true);
+
+        User u = new User();
+        u.setName(name);
+        u.setPassword(password);
+        u.setCreatedAt(new Date());
+        u.setUpdatedAt(new Date());
+        uS.insert(u);
+        return this.login(name, password, session, locale, model);
     }
 
 }

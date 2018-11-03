@@ -36,7 +36,7 @@
             <c:if test="${sessionScope.user != null}">
                 <li class="nav-item">${sessionScope.user.getName()}</li>
                 <li class="nav-item"><a href="#"><i class="fas fa-plus fa-2x"></i></a></li>
-                <li class="nav-item"><a href="#"><i class="fas fa-cogs fa-2x"></i></a></li>
+                <li class="nav-item"><a href=""><i class="fas fa-cogs fa-2x"></i></a></li>
                 <li class="nav-item"><a href="/logout"><i class="fas fa-sign-out-alt fa-2x"></i></a></li>
             </c:if>
         </ul>
