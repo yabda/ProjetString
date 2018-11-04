@@ -5,18 +5,18 @@ import beans.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.*;
 import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service("userService")
 public class UserService implements UserServiceInterface {
-    @PersistenceContext
+    @PersistenceContext(type = PersistenceContextType.EXTENDED)
     private EntityManager em;
 
 
@@ -68,6 +68,19 @@ public class UserService implements UserServiceInterface {
         return null;
     }
 
+    public Boolean testName(String name) {
+        if (name.isEmpty())
+            return false;
+        if (name.length() > 20)
+            return false;
+        List<User> users = findAll();
+        for (User u: users) {
+            if (u.getName().equals(name))
+                return false;
+        }
+        return true;
+    }
+
     @Override
     public User getFromId(int id) {
         Query q = em.createQuery("from User u where u.id = :id");
@@ -80,6 +93,7 @@ public class UserService implements UserServiceInterface {
     }
 
     @Override
+    @Transactional
     public int update(User user) {
         MessageDigest md = null;
         try {
@@ -88,13 +102,11 @@ public class UserService implements UserServiceInterface {
         catch(NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        user.setPassword(new String(md.digest(user.getPassword().getBytes())));
-        Query q = em.createQuery("update User u set u.name = :name , u.password = :password , u.createdAt = :createdAt," +
+        Query q = em.createQuery("update User u set u.name = :name , u.createdAt = :createdAt," +
                 "  u.updatedAt = :updatedAt" +
                 " where id = :id");
         q.setParameter("id", user.getId());
         q.setParameter("name", user.getName());
-        q.setParameter("password", user.getPassword());
         q.setParameter("createdAt", user.getCreatedAt());
         q.setParameter("updatedAt", user.getUpdatedAt());
 

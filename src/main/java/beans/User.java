@@ -1,9 +1,11 @@
 package beans;
 
 
+import org.hibernate.annotations.Proxy;
 import org.springframework.context.annotation.Scope;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Map;
@@ -35,11 +37,10 @@ public class User {
     private Set<Message> messages=new HashSet<>();
 
     @OneToMany
-    @Column(columnDefinition = "participe")
+    @Column(columnDefinition = "usersParticipation")
     private Set<Project> participeProjects=new HashSet<>();
 
-    @OneToMany
-    @Column(columnDefinition = "create")
+    @OneToMany(mappedBy = "belongUser")
     private Set<Project> createdProjects=new HashSet<>();
 
     @ElementCollection

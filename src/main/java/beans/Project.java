@@ -40,11 +40,10 @@ public class Project implements Comparable<Project>{
     @Column(name = "failed")
     private boolean failed;
 
-
-    @OneToOne
+    @ManyToOne
     private User belongUser;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany
     private Set<User> usersParticipation=new HashSet<>();
 
     @OneToMany
