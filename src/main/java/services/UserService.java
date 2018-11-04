@@ -3,6 +3,7 @@ package services;
 import beans.Project;
 import beans.User;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -33,6 +34,7 @@ public class UserService implements UserServiceInterface {
     }
 
     @Override
+    @Transactional
     public void insert(User user) {
         MessageDigest md = null;
         try {
@@ -41,7 +43,12 @@ public class UserService implements UserServiceInterface {
         catch(NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        user.setPassword(new String(md.digest(user.getPassword().getBytes())));
+        byte[] result = md.digest(user.getPassword().getBytes());
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < result.length; i++) {
+            sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
+        }
+        user.setPassword(sb.toString());
         em.persist(user);
     }
 
