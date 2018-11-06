@@ -55,9 +55,12 @@ public class Controller {
     public String donation(@RequestParam("pId") int pId,@RequestParam("donationValue") int donation, HttpSession session, Locale locale, Model model){
         Project p = pS.getFromId(pId);
         User uSess = (User)session.getAttribute("user");
-        User u = uS.getFromId(uSess.getId());
+        if (uSess !=null){
+            User u = uS.getFromId(uSess.getId());
+            pS.donation(u,p,donation);
+            System.out.println("back in donation\n");
+        }
         model.addAttribute("project",p);
-        pS.donation(u,p,donation);
 
         return "redirect:/Project/"+p.getId();
     }

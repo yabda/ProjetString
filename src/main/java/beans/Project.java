@@ -44,7 +44,7 @@ public class Project implements Comparable<Project>{
     @ManyToOne
     private User belongUser;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
     private Set<User> usersParticipation=new HashSet<>();
 
     @OneToMany(mappedBy = "belongProject")
@@ -57,7 +57,7 @@ public class Project implements Comparable<Project>{
     private Category category;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    private Map<User,Float> participations;
+    private Map<Integer,Float> participations;
 
     public Project() {
     }
@@ -120,11 +120,11 @@ public class Project implements Comparable<Project>{
         this.deadLine = deadLine;
     }
 
-    public Map<User, Float> getParticipations() {
+    public Map<Integer, Float> getParticipations() {
         return participations;
     }
 
-    public void setParticipations(Map<User, Float> participations) {
+    public void setParticipations(Map<Integer, Float> participations) {
         this.participations = participations;
     }
 
