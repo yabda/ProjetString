@@ -36,8 +36,9 @@
           <element id="library" level="project" name="Maven: org.springframework.data:spring-data-jpa:2.1.0.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.data:spring-data-commons:2.1.0.RELEASE" />
           <element id="library" level="project" name="Maven: org.aspectj:aspectjrt:1.9.1" />
-          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.25" />
           <element id="library" level="project" name="Maven: com.h2database:h2:1.4.197" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.5" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-simple:1.6.4" />
         </element>
       </element>
       <element id="directory" name="META-INF">

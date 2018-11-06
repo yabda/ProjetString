@@ -1,9 +1,11 @@
 package beans;
 
 
+import org.hibernate.annotations.Proxy;
 import org.springframework.context.annotation.Scope;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Map;

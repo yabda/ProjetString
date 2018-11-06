@@ -70,7 +70,6 @@ public class Project implements Comparable<Project>{
 
         this.createdAt = new Date();
         this.failed = false;
-
     }
 
     public int getId() {

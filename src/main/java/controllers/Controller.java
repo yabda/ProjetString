@@ -113,4 +113,33 @@ public class Controller {
         return this.login(name, password, session, locale, model);
     }
 
+    @RequestMapping(value = "/users/{userId}", method = RequestMethod.GET)
+    public String userView(@PathVariable String userId, HttpSession session, Locale locale, Model model) {
+        if (userId.equals("me") && session.getAttribute("user") == null)
+            return "redirect:/login";
+        else if (userId.equals("me") && session.getAttribute("user") != null)
+            return "/user/me";
+        else {
+            User u = uS.getFromId(Integer.parseInt(userId));
+            if (u == null)
+                return "/errors/404";
+            else
+                return "/user/view";
+        }
+    }
+
+    @RequestMapping(value = "/users/me/editName", method = RequestMethod.POST)
+    public String changeName(@RequestParam("name") String name, HttpSession session, Locale locale, Model model) {
+        if (!uS.testName(name))
+            return "redirect:/users/me";
+        if (session.getAttribute("user") == null)
+            return "redirect:/login";
+        else {
+            User u = (User)session.getAttribute("user");
+            u.setName(name);
+            uS.update(u);
+            user = u;
+            return "redirect:/users/me";
+        }
+    }
 }
