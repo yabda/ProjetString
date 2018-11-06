@@ -40,9 +40,9 @@
 
     <c:if test="${sessionScope.get('user').getName()!=null}">
         <form action="/donation" method="POST">
-            <p>Montant :  <input type=number name="donationValue" /></p>
+            <p>Amount :  <input type=number required="true" name="donationValue" /></p>
             <input type="hidden" name="pId" value=${project.getId()} >
-            <p><input type="submit" value="PARRAINER"></p>
+            <p><input type="submit" value="DONATE"></p>
         </form>
     </c:if>
     <c:if test="${sessionScope.get('user')==null}">
