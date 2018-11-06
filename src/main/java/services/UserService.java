@@ -49,6 +49,7 @@ public class UserService implements UserServiceInterface {
             sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
         }
         user.setPassword(sb.toString());
+        System.out.println(user.getName());
         em.persist(user);
     }
 
@@ -68,17 +69,17 @@ public class UserService implements UserServiceInterface {
         return null;
     }
 
-    public Boolean testName(String name) {
+    public String testName(String name) {
         if (name.isEmpty())
-            return false;
+            return "Empty name";
         if (name.length() > 20)
-            return false;
+            return "Name length must be between 1 and 20 characters";
         List<User> users = findAll();
         for (User u: users) {
             if (u.getName().equals(name))
-                return false;
+                return "Name already taken !";
         }
-        return true;
+        return null;
     }
 
     @Override

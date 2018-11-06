@@ -14,15 +14,15 @@
             <div>
                 <h2>Register</h2>
                 <form class="form-horizontal" method="post" role="form" action="/register" id="register-form">
-                <c:if test="${badRegister==true}">
+                <c:if test="${not empty badRegister}">
                     <div class="form-group">
-                        <label class="control-label col-md-2" for="name">Bad entries</label>
+                        <label class="control-label col-md-2" id="error-label" for="name">${badRegister}</label>
                     </div>
                 </c:if>
                     <div class="form-group">
                         <label class="control-label col-md-2" for="name">Name:</label>
                         <div class="col-md-10">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Name" required value="${name}">
                         </div>
                     </div>
                     <div class="form-group">
