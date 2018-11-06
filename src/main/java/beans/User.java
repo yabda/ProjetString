@@ -30,17 +30,18 @@ public class User {
     @Column(name = "updatedAt")
     private Date updatedAt;
 
-    @OneToMany
+    @OneToMany(mappedBy = "belongUser")
     private Set<Answer> answers=new HashSet<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "belongUser")
     private Set<Message> messages=new HashSet<>();
 
-    @OneToMany
-    @Column(columnDefinition = "usersParticipation")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "usersParticipation")
+    @Column(columnDefinition = "participe")
     private Set<Project> participeProjects=new HashSet<>();
 
     @OneToMany(mappedBy = "belongUser")
+    @Column(columnDefinition = "create")
     private Set<Project> createdProjects=new HashSet<>();
 
     @ElementCollection

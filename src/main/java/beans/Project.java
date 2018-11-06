@@ -1,6 +1,6 @@
 package beans;
 
-import org.hibernate.annotations.Fetch;
+
 
 import javax.persistence.*;
 import java.util.Date;
@@ -40,22 +40,23 @@ public class Project implements Comparable<Project>{
     @Column(name = "failed")
     private boolean failed;
 
+
     @ManyToOne
     private User belongUser;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<User> usersParticipation=new HashSet<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "belongProject")
     private Set<Message> messages=new HashSet<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "belongProject")
     private Set<Counterpart> counterparts=new HashSet<>();
 
-    @OneToOne
+    @ManyToOne
     private Category category;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private Map<User,Float> participations;
 
     public Project() {

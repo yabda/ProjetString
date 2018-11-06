@@ -84,11 +84,12 @@ public class UserService implements UserServiceInterface {
 
     @Override
     public User getFromId(int id) {
-        Query q = em.createQuery("from User u where u.id = :id");
+        Query q = em.createQuery("select u from User u where u.id = :id");
         q.setParameter("id", id);
         q.setMaxResults(1);
-        if (q.getResultList().size() > 0)
-            return (User)q.getResultList().get(0);
+        List<User> tmp = q.getResultList();
+        if (tmp.size() > 0)
+            return tmp.get(0);
         else
             return null;
     }
