@@ -104,8 +104,17 @@ public class Controller {
         if (session.getAttribute("user") != null)
             return "redirect:/";
 
-        if (!repeat_password.equals(password) || name.length() <= 0)
-            model.addAttribute("badRegister", true);
+        if (!repeat_password.equals(password)) {
+            model.addAttribute("badRegister", "Password must be the same");
+            model.addAttribute("name", name);
+            return "user/register";
+        }
+        String test = uS.testName(name);
+        if (test != null) {
+            model.addAttribute("badRegister", test);
+            model.addAttribute("name", name);
+            return "user/register";
+        }
 
         User u = new User();
         u.setName(name);
@@ -133,8 +142,12 @@ public class Controller {
 
     @RequestMapping(value = "/users/me/editName", method = RequestMethod.POST)
     public String changeName(@RequestParam("name") String name, HttpSession session, Locale locale, Model model) {
-        if (!uS.testName(name))
-            return "redirect:/users/me";
+        String test = uS.testName(name);
+        if (test != null) {
+            model.addAttribute("badChange", test);
+            model.addAttribute("name", name);
+            return "user/me";
+        }
         if (session.getAttribute("user") == null)
             return "redirect:/login";
         else {

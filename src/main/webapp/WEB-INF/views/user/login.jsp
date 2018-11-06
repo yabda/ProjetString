@@ -16,7 +16,7 @@
                 <form class="form-horizontal" method="post" role="form" action="/login" id="login-form">
                 <c:if test="${badLogin==true}">
                     <div class="form-group">
-                        <label class="control-label col-md-2" for="name">Bad credentials</label>
+                        <label class="control-label col-md-2" for="name" id="error-label">Bad credentials</label>
                     </div>
                 </c:if>
                     <div class="form-group">
