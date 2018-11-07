@@ -6,18 +6,13 @@ import beans.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import services.*;
 
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 @org.springframework.stereotype.Controller
@@ -34,6 +29,23 @@ public class Controller {
     private UserServiceInterface uS;
     @Resource(name = "counterpartService")
     private CounterpartServiceInterface cS;
+
+
+    @RequestMapping(value = "/search", method=RequestMethod.POST)
+    public  String search(@RequestParam("terms") String terms, HttpSession session, Locale locale, Model model){
+
+        List<Project> result = pS.search(terms);
+        if (result.isEmpty()){
+            model.addAttribute("searchResult",pS.findAll());
+            model.addAttribute("find",false);
+        }
+        else {
+            model.addAttribute("searchResult", result);
+            model.addAttribute("find", true);
+        }
+        model.addAttribute("terms",terms);
+        return "search";
+    }
 
     @RequestMapping(value="/",method = RequestMethod.GET)
     public String index(HttpSession session, Locale locale, Model model) {
@@ -55,10 +67,11 @@ public class Controller {
     public String donation(@RequestParam("pId") int pId,@RequestParam("donationValue") int donation, HttpSession session, Locale locale, Model model){
         Project p = pS.getFromId(pId);
         User uSess = (User)session.getAttribute("user");
-        User u = uS.getFromId(uSess.getId());
+        if (uSess !=null){
+            User u = uS.getFromId(uSess.getId());
+            pS.donation(u,p,donation);
+        }
         model.addAttribute("project",p);
-        pS.donation(u,p,donation);
-
         return "redirect:/Project/"+p.getId();
     }
 
@@ -132,8 +145,10 @@ public class Controller {
             User u = uS.getFromId(Integer.parseInt(userId));
             if (u == null)
                 return "/errors/404";
-            else
+            else {
+                model.addAttribute("user", u);
                 return "/user/view";
+            }
         }
     }
 

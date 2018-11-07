@@ -34,7 +34,6 @@ public class UserService implements UserServiceInterface {
     }
 
     @Override
-    @Transactional
     public void insert(User user) {
         MessageDigest md = null;
         try {
@@ -48,8 +47,10 @@ public class UserService implements UserServiceInterface {
         for (int i = 0; i < result.length; i++) {
             sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
         }
+        List<User> list = findAll();
+
         user.setPassword(sb.toString());
-        System.out.println(user.getName());
+        em.clear();
         em.persist(user);
     }
 
@@ -104,15 +105,9 @@ public class UserService implements UserServiceInterface {
         catch(NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        Query q = em.createQuery("update User u set u.name = :name , u.createdAt = :createdAt," +
-                "  u.updatedAt = :updatedAt" +
-                " where id = :id");
-        q.setParameter("id", user.getId());
-        q.setParameter("name", user.getName());
-        q.setParameter("createdAt", user.getCreatedAt());
-        q.setParameter("updatedAt", user.getUpdatedAt());
-
-        return q.executeUpdate();
+        em.clear();
+        em.merge(user);
+        return 0;
     }
 
     @Override

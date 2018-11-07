@@ -2,25 +2,14 @@ package services;
 
 import beans.Project;
 import beans.User;
-import org.hibernate.Hibernate;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.hql.internal.ast.util.SessionFactoryHelper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.xml.bind.SchemaOutputResolver;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Service("projectService")
 public class ProjectService implements IProjectService {
@@ -29,6 +18,22 @@ public class ProjectService implements IProjectService {
 
     @Resource(name = "userService")
     private UserServiceInterface uS;
+
+
+    public List<Project> search(String terms){
+        List<Project> resultDirect = new ArrayList<Project>();
+        List<Project> resultOther = new ArrayList<Project>();
+        for (Project p :findAll()) {
+            if(p.getTitle().contains(terms)||p.getCategory().getName().contains(terms)){
+                    resultDirect.add(p);
+            }
+            if(p.getDescription().contains(terms) && !resultDirect.contains(p)){
+                resultOther.add(p);
+            }
+        }
+        resultDirect.addAll(resultOther);
+        return resultDirect;
+    }
 
 
     @Override
@@ -69,23 +74,6 @@ public class ProjectService implements IProjectService {
     public int update(Project project) {
 
         Project p = em.merge(project);
-
-
-        /*Query q = em.createQuery("UPDATE Project p set p.title = :title , p.description = :description, " +
-                "p.goal = :goal, p.current = :current, " +
-                "p.deadLine = :deadline, p.createdAt = :createdAt, " +
-                "p.updatedAt = :updatedAt, p.failed = :failed " +
-                "WHERE p.id = :id");
-        q.setParameter("id", project.getId());
-        q.setParameter("title", project.getTitle());
-        q.setParameter("description", project.getDescription());
-        q.setParameter("goal", project.getGoal());
-        q.setParameter("current", project.getCurrent());
-        q.setParameter("deadline", project.getDeadLine());
-        q.setParameter("createdAt", project.getCreatedAt());
-        q.setParameter("updatedAt", project.getUpdatedAt());
-        q.setParameter("failed", project.isFailed());*/
-
         return (p!=project?0:1);
     }
 
@@ -96,29 +84,37 @@ public class ProjectService implements IProjectService {
         return q.executeUpdate();
     }
 
+
+    /*
+    * do all operations needed to manage donation to a project
+    * add cash to the project current
+    *
+    * add user to the project Userparticipations list if not already in
+    * add user to the project participations list or update amount if already in
+    *
+    * and push project to DB
+    *
+    * */
     @Override
     @Transactional
     public int donation(User u, Project p, int val){
         if (p.getCurrent()<p.getGoal() || val <=0 || p.getDeadLine().after(new Date())|| u ==null){
-            if (p.getCurrent()+val <= p.getGoal()) {
+            if (p.getCurrent()+val <= p.getGoal()) {     //update current project amount
                 p.setCurrent(p.getCurrent()+val);
             }
             else
             {
                 p.setCurrent(p.getGoal());
             }
-            Set<User> userParticipation = p.getUsersParticipation();
-            userParticipation.add(u);
-            p.setUsersParticipation(userParticipation);
-            Map<User,Float> participations = p.getParticipations();
-            System.out.println("participantions : "+participations.toString());
-            if (participations.get(u)!=null){
-                System.out.println("l'utilisateur a déja donné a hauteur de : "+participations.get(u));
-                System.out.println("on y ajoute : "+val);
-                participations.replace(u,(participations.get(u)+val));
-            }else{
-                System.out.println("premiere participation");
-                participations.put(u,(float)val);
+            Map<Integer,Float> participations = p.getParticipations();
+            if (participations.containsKey(u.getId())){     //Update total donation amount if already in participant
+                participations.replace(u.getId(),(participations.get(u.getId())+val));
+            }else{  //if first donation by this user add him to needed list
+                Set<User> userParticipation = p.getUsersParticipation();
+                userParticipation.add(u);
+                p.setUsersParticipation(userParticipation);
+
+                participations.put(u.getId(),(float)val);
                 Set<Project> participe = null;
 
                 if(u.getParticipeProjects()!=null)
@@ -126,23 +122,15 @@ public class ProjectService implements IProjectService {
                     participe = u.getParticipeProjects();
                 }
                 participe.add(p);
-
-
                 u.setParticipeProjects(participe);
             }
             p.setParticipations(participations);
             update(p);
-            uS.update(u);
-
-
             return 1;
-
         }
         else {
             System.out.println("project over, no donation added");
-             return -1;  // null donation or project already over
+            return -1;  // null donation or project already over
         }
-
     }
-
 }

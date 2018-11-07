@@ -34,8 +34,16 @@
 </header>
 <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
     <div class="container-fluid">
+        <ul class="nav navbar-nav" id="left-bar">
+            <form action="/search" method="POST">
+                <p>
+                    <input type=text required="true" name="terms" />
+                    <input type="submit" value="Search">
+                </p>
+            </form>
+        </ul>
         <ul class="nav navbar-nav mr-auto"></ul>
-        <ul class="nav navbar-nav" id="right-bar">
+            <ul class="nav navbar-nav" id="right-bar">
             <c:if test="${sessionScope.user == null}">
                 <li class="nav-item"><a href="/login"><i class="fas fa-sign-in-alt fa-2x"></i></a></li>
             </c:if>
