@@ -2,46 +2,50 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<html>
-<head>
-    <title>Page du projet </title>
-</head>
-<header>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <a href="/"><img src="/resources/images/logo.png"></a>
-                <h1>${project.getTitle()}</h1>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+
+<t:layout>
+    <jsp:attribute name="header">
+
+    </jsp:attribute>
+
+    <jsp:attribute name="main">
+        <div class="container-fluid">
+            <h1>${project.getTitle()}</h1>
+            <p>${project.getCreatedAt()} - ${project.getDeadLine()}</p>
+            <div>
+                <p>${project.getDescription()}</p>
             </div>
-        </div>
-    </div>
-</header>
-<body>
-
-<div>
-    On y est presque, le projet a déjà récolté ${project.getCurrent()} sur ${project.getGoal()}€
-</div>
-
-<div>Ce projet est déjà suppporté par :
-    <ul>
+            <div>
+                On y est presque, le projet a déjà récolté ${project.getCurrent()} sur ${project.getGoal()}€
+            </div>
+            <hr>
+            <div>
+                <h1>Supporters</h1>
+                <ul>
         <c:forEach items="${project.getParticipations().values().toArray()}" var="participations">
             <div class="col-md-4">
                 <li>${participations}</li>
             </div>
         </c:forEach>
+                </ul>
+            </div>
+            <hr>
 
-    </ul>
+            <div>
+                <h1>Soutenir</h1>
+                <div>
+                    <h3>S'engager sans récompense</h3>
+                    <form action="/donation" method="POST">
+                        <p>ARGENT :  <input type=number name="donationValue" /></p>
+                        <input type="hidden" name="pId" value=${project.getId()} >
+                        <p><input type="submit" value="PARRAINER"></p>
+                    </form>
+                </div>
+                <div>AUTRE COUNTERPART</div>
+            </div>
 
-</div>
-<div>
-    <h2>PARRAINER LE PROJET</h2>
-    <form action="/donation" method="POST">
-        <p>ARGENT :  <input type=number name="donationValue" /></p>
-        <input type="hidden" name="pId" value=${project.getId()} >
-        <p><input type="submit" value="PARRAINER"></p>
-    </form>
-</div>
-
-</body>
-</html>
+        </div>
+    </jsp:attribute>
+</t:layout>

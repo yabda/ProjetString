@@ -1,0 +1,16 @@
+services\CRUDService.class
+services\UserService.class
+beans\Project.class
+config\WebServletConfiguration.class
+beans\Message.class
+services\UserServiceInterface.class
+services\IProjectService.class
+beans\Category.class
+beans\Answer.class
+beans\User.class
+config\ClientWebConfig.class
+services\CounterpartService.class
+beans\Counterpart.class
+services\CounterpartServiceInterface.class
+controllers\Controller.class
+services\ProjectService.class

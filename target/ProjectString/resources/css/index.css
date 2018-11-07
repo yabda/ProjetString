@@ -1,0 +1,66 @@
+html {
+    background-color: gainsboro;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+header {
+    background: cornflowerblue;
+    text-align: center;
+}
+
+header h1 {
+    font-family: BigNoodleTitling, serif;
+}
+
+nav {
+    background-color: cadetblue;
+}
+
+nav a {
+    color: white;
+}
+
+nav a :hover {
+    color: white;
+    text-underline: none;
+}
+
+#right-bar {
+    flex-direction: row;
+}
+
+#right-bar > li {
+    margin-right: 10px;
+}
+
+
+main {
+    background-color: aliceblue;
+    height: 100%;
+}
+
+#front-projects {
+    padding-top: 15px;
+}
+
+#front-projects > div > div {
+    text-align: center;
+    background-color: darkgoldenrod;
+}
+
+#front-projects > div > div:hover {
+    text-align: center;
+    background-color: #fff926;
+}
+
+#front-projects > div > div > a > h2 {
+    font-size: 5rem;
+    color: black;
+}
+
+#front-projects > div > div > a:hover {
+    text-decoration: none;
+    color: black;
+}

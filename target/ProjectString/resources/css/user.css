@@ -1,0 +1,28 @@
+.container {
+    padding-top: 25px;
+}
+
+#login-form {
+    border: 3px solid grey;
+    border-radius: 3px;
+}
+
+#register-form {
+    border: 3px solid grey;
+    border-radius: 3px;
+}
+
+#display-user {
+    padding-left: 15px;
+    padding-top: 15px;
+}
+
+#user-name {
+    font-size: 120px;
+}
+
+#error-label {
+    color : red;
+    max-width: 100%;
+    margin-top: 15px;
+}
