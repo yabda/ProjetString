@@ -1,6 +1,7 @@
 package beans;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class Answer {
@@ -59,5 +60,16 @@ public class Answer {
 
     public void setBelongMessage(Message belongMessage) {
         this.belongMessage = belongMessage;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Answer answer = (Answer) o;
+        return id == answer.id &&
+                Objects.equals(content, answer.content) &&
+                Objects.equals(belongUser, answer.belongUser) &&
+                Objects.equals(belongMessage, answer.belongMessage);
     }
 }

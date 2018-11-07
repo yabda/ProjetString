@@ -1,7 +1,7 @@
-INSERT INTO user(id,name,password,createdAt) VALUES (1,'Admin','7110eda4d09e062aa5e4a390b0a572ac0d2c0220','2018-10-13');
-INSERT INTO user(id,name,password,createdAt) VALUES (2,'Charlotte','7110eda4d09e062aa5e4a390b0a572ac0d2c0220','2018-10-13');
-INSERT INTO user(id,name,password,createdAt) VALUES (3,'Yanis','7110eda4d09e062aa5e4a390b0a572ac0d2c0220','2018-10-13');
-INSERT INTO user(id,name,password,createdAt) VALUES (4,'Etienne','7110eda4d09e062aa5e4a390b0a572ac0d2c0220','2018-10-13');
+INSERT INTO user(id,name,password,createdAt) VALUES (0,'Admin','7110eda4d09e062aa5e4a390b0a572ac0d2c0220','2018-10-13');
+INSERT INTO user(id,name,password,createdAt) VALUES (1,'Charlotte','7110eda4d09e062aa5e4a390b0a572ac0d2c0220','2018-10-13');
+INSERT INTO user(id,name,password,createdAt) VALUES (2,'Yanis','7110eda4d09e062aa5e4a390b0a572ac0d2c0220','2018-10-13');
+INSERT INTO user(id,name,password,createdAt) VALUES (3,'Etienne','7110eda4d09e062aa5e4a390b0a572ac0d2c0220','2018-10-13');
 
 INSERT INTO Category(id,name) VALUES (1,'Solidaire et citoyen');
 INSERT INTO Category(id,name) VALUES (2,'Technologie');

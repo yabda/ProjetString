@@ -1,6 +1,7 @@
 package beans;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class Message {
@@ -68,5 +69,17 @@ public class Message {
 
     public void setBelongProject(Project belongProject) {
         this.belongProject = belongProject;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Message message = (Message) o;
+        return id == message.id &&
+                Objects.equals(content, message.content) &&
+                Objects.equals(belongAnswer, message.belongAnswer) &&
+                Objects.equals(belongUser, message.belongUser) &&
+                Objects.equals(belongProject, message.belongProject);
     }
 }

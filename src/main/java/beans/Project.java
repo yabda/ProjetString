@@ -3,10 +3,7 @@ package beans;
 
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Project implements Comparable<Project>{
@@ -197,4 +194,25 @@ public class Project implements Comparable<Project>{
         return (p.createdAt.after(this.createdAt))?1:0;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Project project = (Project) o;
+        return id == project.id &&
+                goal == project.goal &&
+                current == project.current &&
+                failed == project.failed &&
+                Objects.equals(title, project.title) &&
+                Objects.equals(description, project.description) &&
+                Objects.equals(deadLine, project.deadLine) &&
+                Objects.equals(createdAt, project.createdAt) &&
+                Objects.equals(updatedAt, project.updatedAt) &&
+                Objects.equals(belongUser, project.belongUser) &&
+                Objects.equals(usersParticipation, project.usersParticipation) &&
+                Objects.equals(messages, project.messages) &&
+                Objects.equals(counterparts, project.counterparts) &&
+                Objects.equals(category, project.category) &&
+                Objects.equals(participations, project.participations);
+    }
 }
