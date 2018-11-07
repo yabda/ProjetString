@@ -135,8 +135,10 @@ public class Controller {
             User u = uS.getFromId(Integer.parseInt(userId));
             if (u == null)
                 return "/errors/404";
-            else
+            else {
+                model.addAttribute("user", u);
                 return "/user/view";
+            }
         }
     }
 

@@ -6,10 +6,7 @@ import org.springframework.context.annotation.Scope;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class User {
@@ -129,5 +126,22 @@ public class User {
 
     public void setCreatedProjects(Set<Project> createdProjects) {
         this.createdProjects = createdProjects;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(createdAt, user.createdAt) &&
+                Objects.equals(updatedAt, user.updatedAt) &&
+                Objects.equals(answers, user.answers) &&
+                Objects.equals(messages, user.messages) &&
+                Objects.equals(participeProjects, user.participeProjects) &&
+                Objects.equals(createdProjects, user.createdProjects) &&
+                Objects.equals(participation, user.participation);
     }
 }
