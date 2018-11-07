@@ -2,25 +2,14 @@ package services;
 
 import beans.Project;
 import beans.User;
-import org.hibernate.Hibernate;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.hql.internal.ast.util.SessionFactoryHelper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.xml.bind.SchemaOutputResolver;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Service("projectService")
 public class ProjectService implements IProjectService {
@@ -29,6 +18,22 @@ public class ProjectService implements IProjectService {
 
     @Resource(name = "userService")
     private UserServiceInterface uS;
+
+
+    public List<Project> search(String terms){
+        List<Project> resultDirect = new ArrayList<Project>();
+        List<Project> resultOther = new ArrayList<Project>();
+        for (Project p :findAll()) {
+            if(p.getTitle().contains(terms)||p.getCategory().getName().contains(terms)){
+                    resultDirect.add(p);
+            }
+            if(p.getDescription().contains(terms) && !resultDirect.contains(p)){
+                resultOther.add(p);
+            }
+        }
+        resultDirect.addAll(resultOther);
+        return resultDirect;
+    }
 
 
     @Override
