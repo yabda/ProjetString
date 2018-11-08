@@ -72,16 +72,14 @@
                             </c:if>
                         </c:forEach>
                     <c:if test="${i % 4 != 0}"></div></c:if>
-            </div>
-        </div>
                 <hr>
                 <div id="form-edit-name">
                     <form class="form-horizontal" method="post" role="form" action="/users/me/editName">
-                        <c:if test="${not empty badChange}">
-                            <div class="form-group">
-                                <label class="control-label col-md-2" id="error-label" for="name">${badChange}</label>
-                            </div>
-                        </c:if>
+                <c:if test="${not empty badChange}">
+                    <div class="form-group">
+                        <label class="control-label col-md-2" id="error-label" for="name">${badChange}</label>
+                    </div>
+                </c:if>
                         <div class="form-group">
                             <label class="control-label col-md-2" for="name">New name:</label>
                             <div class="col-md-10">
@@ -97,6 +95,5 @@
                 </div>
             </div>
         </div>
-    </div>
     </jsp:attribute>
 </t:layout>

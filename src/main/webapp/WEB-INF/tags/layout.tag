@@ -32,11 +32,11 @@
         </div>
     </div>
 </header>
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
     <c:if test="${sessionScope.user != null}">
         <div class="navbar-brand" href="#">${sessionScope.user.getName()}</div>
     </c:if>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+    <button style="color: black" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -53,7 +53,7 @@
         </ul>
         <form class="form-inline my-2 my-lg-0" action="/search" method="POST" id="search-form">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" name="terms" aria-label="Search">
-            <a id="search-link" onclick="$('#search-form').submit();"><i class="nav-link fas fa-search fa-2x"></i></a>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search fa-2x"></i></button>
         </form>
     </div>
 </nav>
