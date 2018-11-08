@@ -8,6 +8,7 @@ import org.springframework.cglib.core.Local;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.NoHandlerFoundException;
+import org.w3c.dom.css.Counter;
 import services.*;
 
 
@@ -23,7 +24,6 @@ public class Controller {
 
     @Resource(name = "projectService")
     private IProjectService pS;
-
 
     @Resource(name = "userService")
     private UserServiceInterface uS;
@@ -59,7 +59,18 @@ public class Controller {
     @RequestMapping(value="/Project/{projectId}")
     public String project(@PathVariable String projectId, HttpSession session, Locale locale, Model model){
         Project p = pS.getFromId(Integer.parseInt(projectId));
+        Set<Counterpart> ret = new HashSet<>();
+        List<Counterpart> tmp= cS.getFromProject(p);
+        for (Counterpart cp : tmp) {
+            ret.add(cp);
+        }
+        p.setCounterparts(ret);
+        System.out.println("COUCOU!:" + p.getCounterparts().size());
+        for (Counterpart cp : p.getCounterparts()) {
+            System.out.println(cp.getName());
+        }
         model.addAttribute("project",p);
+
         return "projectX";
     }
 

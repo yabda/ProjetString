@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ page session="true" %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
@@ -23,10 +24,9 @@
             <hr>
             <div>
                 <h1>Supporters</h1>
-                <ul>
-        <c:forEach items="${project.getParticipations().values().toArray()}" var="participations">
+                <c:forEach items="${project.getUsersParticipation()}" var="helpers">
             <div class="col-md-4">
-                <li>${participations}</li>
+                <li>${helpers.getName()} : ${project.getParticipations().get(helpers.getId())}$</li>
             </div>
         </c:forEach>
                 </ul>
@@ -35,17 +35,28 @@
 
             <div>
                 <h1>Soutenir</h1>
-                <div>
-                    <h3>S'engager sans récompense</h3>
-                    <form action="/donation" method="POST">
-                        <p>ARGENT :  <input type=number name="donationValue" /></p>
-                        <input type="hidden" name="pId" value=${project.getId()} >
-                        <p><input type="submit" value="PARRAINER"></p>
-                    </form>
-                </div>
-                <div>AUTRE COUNTERPART</div>
+                <h3>Soutenir sans récompense</h3>
+                <c:if test="${sessionScope.get('user').getName()!=null}">
+                <form action="/donation" method="POST">
+                    <p>Amount :  <input type=number required="true" name="donationValue" /></p>
+                    <input type="hidden" name="pId" value=${project.getId()} >
+                    <p><input type="submit" value="DONATE"></p>
+                </form>
             </div>
+            </c:if>
+            <c:if test="${sessionScope.get('user')==null}">
+        You must be connected to donate
+    </c:if>
+            <hr>
+            <div>
 
+                    <c:forEach items="${project.getCounterparts()}" var="counterpart">
+                        <div class="col-md-4">
+                            <h3>${counterpart.getName()}</h3>
+                        </div>
+                    </c:forEach>
+            </div>
+            <hr>
         </div>
     </jsp:attribute>
 </t:layout>

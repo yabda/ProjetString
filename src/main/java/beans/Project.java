@@ -47,7 +47,7 @@ public class Project implements Comparable<Project>{
     @OneToMany(mappedBy = "belongProject")
     private Set<Message> messages=new HashSet<>();
 
-    @OneToMany(mappedBy = "belongProject")
+    @OneToMany(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
     private Set<Counterpart> counterparts=new HashSet<>();
 
     @ManyToOne
