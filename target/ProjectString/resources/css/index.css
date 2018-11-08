@@ -14,36 +14,6 @@ header h1 {
     font-family: BigNoodleTitling, serif;
 }
 
-nav {
-    background-color: cadetblue !important;
-}
-
-nav a {
-    color: white;
-}
-
-nav a :hover {
-    color: white;
-    text-underline: none;
-}
-
-#search-link {
-    color: white;
-}
-
-#search-link:hover {
-    color: #0056b3;
-}
-
-#right-bar {
-    flex-direction: row;
-}
-
-#right-bar > li {
-    margin-right: 10px;
-}
-
-
 main {
     background-color: aliceblue;
     height: 100%;
