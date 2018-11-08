@@ -32,28 +32,29 @@
         </div>
     </div>
 </header>
-<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-    <div class="container-fluid">
-        <ul class="nav navbar-nav" id="left-bar">
-            <form action="/search" method="POST">
-                <p>
-                    <input type=text required="true" name="terms" />
-                    <input type="submit" value="Search">
-                </p>
-            </form>
-        </ul>
-        <ul class="nav navbar-nav mr-auto"></ul>
-            <ul class="nav navbar-nav" id="right-bar">
+<nav class="navbar navbar-expand-lg">
+    <c:if test="${sessionScope.user != null}">
+        <div class="navbar-brand" href="#">${sessionScope.user.getName()}</div>
+    </c:if>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarToggler">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <c:if test="${sessionScope.user == null}">
-                <li class="nav-item"><a href="/login"><i class="fas fa-sign-in-alt fa-2x"></i></a></li>
+                <li class="nav-item"><a href="/login"><i class="nav-link fas fa-sign-in-alt fa-2x"></i></a></li>
             </c:if>
             <c:if test="${sessionScope.user != null}">
-                <li class="nav-item">${sessionScope.user.getName()}</li>
-                <li class="nav-item"><a href="#"><i class="fas fa-plus fa-2x"></i></a></li>
-                <li class="nav-item"><a href="/users/me"><i class="fas fa-cogs fa-2x"></i></a></li>
-                <li class="nav-item"><a href="/logout"><i class="fas fa-sign-out-alt fa-2x"></i></a></li>
+                <li class="nav-item"><a href="#"><i class="nav-link fas fa-plus fa-2x"></i></a></li>
+                <li class="nav-item"><a href="/users/me"><i class="nav-link fas fa-cogs fa-2x"></i></a></li>
+                <li class="nav-item"><a href="/logout"><i class="nav-link fas fa-sign-out-alt fa-2x"></i></a></li>
             </c:if>
         </ul>
+        <form class="form-inline my-2 my-lg-0" action="/search" method="POST" id="search-form">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" name="terms" aria-label="Search">
+            <a id="search-link" onclick="$('#search-form').submit();"><i class="nav-link fas fa-search fa-2x"></i></a>
+        </form>
     </div>
 </nav>
 <main>
