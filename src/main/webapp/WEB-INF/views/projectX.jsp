@@ -8,7 +8,7 @@
 
 <t:layout>
     <jsp:attribute name="header">
-
+<link rel="stylesheet" href="/resources/css/projetX.css">
     </jsp:attribute>
 
     <jsp:attribute name="main">
@@ -35,25 +35,46 @@
 
             <div>
                 <h1>Soutenir</h1>
+                <div class="card">
                 <h3>Soutenir sans récompense</h3>
                 <c:if test="${sessionScope.get('user').getName()!=null}">
                 <form action="/donation" method="POST">
-                    <p>Amount :  <input type=number required="true" name="donationValue" /></p>
+                    <p>Amount :  <input type=number required="true" name="donationValue" >
                     <input type="hidden" name="pId" value=${project.getId()} >
-                    <p><input type="submit" value="DONATE"></p>
+                    <input type="submit" value="DONATE"></p>
                 </form>
-            </div>
+
             </c:if>
-            <c:if test="${sessionScope.get('user')==null}">
+                <c:if test="${sessionScope.get('user')==null}">
         You must be connected to donate
     </c:if>
-            <hr>
+                </div>
+            </div>
+            <br>
+
             <div>
 
                     <c:forEach items="${project.getCounterparts()}" var="counterpart">
-                        <div class="col-md-4">
+                        <div class="card">
                             <h3>${counterpart.getName()}</h3>
+                            <p>${counterpart.getDescription()}</p>
+
+                            <div >
+                                <c:if test="${sessionScope.get('user').getName()!=null}">
+                <form action="/donation" method="POST">
+                    <p>Amount :  <input value=${counterpart.getPrice()} min=${counterpart.getPrice()} type=number required="true" name="donationValue">
+                    <input type="hidden" name="pId" value=${project.getId()} >
+                    <input type="submit" value="DONATE"></p>
+                </form>
+
+            </c:if>
+                                <c:if test="${sessionScope.get('user')==null}">
+        You must be connected to donate
+    </c:if>
+                            </div>
+
                         </div>
+                        <br>
                     </c:forEach>
             </div>
             <hr>
