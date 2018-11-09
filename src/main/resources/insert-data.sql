@@ -16,3 +16,5 @@ INSERT INTO Project(id,title,description,goal,current,deadLine,createdAt,failed,
 
 INSERT INTO COUNTERPART(id,description,name,price,belongproject_id) VALUES (1,'Un grand merci !','Pour 5 euros ou plus',5,1);
 INSERT INTO COUNTERPART(id,description,name,price,belongproject_id) VALUES (2,'Certificat de parrainage et fiche de présentation avec portrait photo de l''animal','Pour 25 euros ou plus',25,1);
+INSERT INTO COUNTERPART(id,description,name,price,belongproject_id) VALUES (3,'Ramener votre panda chez vous!','Pour 500 euros ou plus',500,1);
+

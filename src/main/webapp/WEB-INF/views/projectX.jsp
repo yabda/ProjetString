@@ -13,7 +13,10 @@
 
     <jsp:attribute name="main">
         <div class="container-fluid">
-            <h1>${project.getTitle()}</h1>
+            <h1 id="project-name">${project.getTitle()}</h1>
+            <div class="alert alert-success goalDone" >
+                <strong>Success!</strong> Indicates a successful or positive action.
+            </div>
             <p>${project.getCreatedAt()} - ${project.getDeadLine()}</p>
             <div>
                 <p>${project.getDescription()}</p>
@@ -38,15 +41,16 @@
                 <div class="card">
                 <h3>Soutenir sans récompense</h3>
                 <c:if test="${sessionScope.get('user').getName()!=null}">
+                    <div>
                 <form action="/donation" method="POST">
                     <p>Amount :  <input type=number required="true" name="donationValue" >
                     <input type="hidden" name="pId" value=${project.getId()} >
                     <input type="submit" value="DONATE"></p>
                 </form>
-
+                    </div>
             </c:if>
                 <c:if test="${sessionScope.get('user')==null}">
-        You must be connected to donate
+        Vous devez etre connecté pour participer à un projet
     </c:if>
                 </div>
             </div>
@@ -69,7 +73,7 @@
 
             </c:if>
                                 <c:if test="${sessionScope.get('user')==null}">
-        You must be connected to donate
+        Vous devez etre connecté pour participer à un projet
     </c:if>
                             </div>
 
@@ -81,3 +85,4 @@
         </div>
     </jsp:attribute>
 </t:layout>
+
