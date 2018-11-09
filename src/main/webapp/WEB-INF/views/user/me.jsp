@@ -24,7 +24,7 @@
                                 <div class="row">
                             </c:if>
                                     <div class="col-md-3">
-                                        <h4>${p.getTitle()}</h4>
+                                        <a href="/project/${p.getId()}"><h4>${p.getTitle()}</h4></a>
                                     </div>
                             <c:set var="i" scope="page" value="${i + 1}"/>
                             <c:if test="${i % 4 == 0}">
@@ -44,7 +44,7 @@
                                 <div class="row">
                             </c:if>
                             <div class="col-md-3">
-                                <h4>${p.getTitle()}</h4>
+                                <a href="/project/${p.getId()}"><h4>${p.getTitle()}</h4></a>
                             </div>
                             <c:set var="i" scope="page" value="${i + 1}"/>
                             <c:if test="${i % 4 == 0}">

@@ -1,0 +1,52 @@
+#title-project {
+    font-size: 75px;
+}
+
+#text-bar {
+    color: black !important;
+}
+
+#top-panel {
+    background-color: gainsboro;
+    margin-top: 25px;
+    border-radius: 5px;
+    box-shadow: 10px 5px 5px lightgray;
+    border-bottom: solid 2px grey;
+    margin-bottom: 25px;
+}
+
+#top-panel:hover {
+    box-shadow: 10px 5px 5px darkgray;
+}
+
+#mid-panel > .col-md-8 {
+    border-radius: 5px;
+    background-color: #ececec;
+    padding-right: 100px;
+}
+
+#mid-panel > .col-md-3 {
+    border-radius: 5px;
+    background-color: #ececec;
+}
+
+main a {
+    color: rgba(0,0,0,.5);;
+    text-align: center;
+}
+
+main a:hover {
+    text-decoration: none;
+    color: rgba(0,0,0,.75);
+}
+
+.counterpart {
+    border: solid 1px gray;
+    border-radius: 3px;
+    padding: 10px;
+    margin-bottom: 25px;
+}
+
+.counterpart:hover {
+    background-color: #cecece;
+}
