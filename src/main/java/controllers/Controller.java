@@ -44,7 +44,7 @@ public class Controller {
             model.addAttribute("find", true);
         }
         model.addAttribute("terms",terms);
-        return "search";
+        return "project/search";
     }
 
     @RequestMapping(value="/",method = RequestMethod.GET)
@@ -56,7 +56,7 @@ public class Controller {
     }
 
 
-    @RequestMapping(value="/Project/{projectId}")
+    @RequestMapping(value="/project/{projectId}")
     public String project(@PathVariable String projectId, HttpSession session, Locale locale, Model model){
         Project p = pS.getFromId(Integer.parseInt(projectId));
         Set<Counterpart> ret = new HashSet<>();
@@ -71,7 +71,7 @@ public class Controller {
         }
         model.addAttribute("project",p);
 
-        return "projectX";
+        return "project/view";
     }
 
     @RequestMapping(value="/donation",method = RequestMethod.POST)
@@ -83,7 +83,7 @@ public class Controller {
             pS.donation(u,p,donation);
         }
         model.addAttribute("project",p);
-        return "redirect:/Project/"+p.getId();
+        return "redirect:/project/"+p.getId();
     }
 
     @RequestMapping(value="/login",method = RequestMethod.GET )

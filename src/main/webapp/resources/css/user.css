@@ -2,6 +2,16 @@
     padding-top: 25px;
 }
 
+main a {
+    color: rgba(0,0,0,.5);;
+    text-align: center;
+}
+
+main a:hover {
+    text-decoration: none;
+    color: rgba(0,0,0,.75);
+}
+
 #login-form {
     border: 3px solid grey;
     border-radius: 3px;
