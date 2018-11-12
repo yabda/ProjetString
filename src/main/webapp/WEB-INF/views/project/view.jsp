@@ -93,6 +93,7 @@
                     </div>
                     <c:forEach items="${project.getMessages()}" var="m">
                         <div>
+                            Question de ${m.getBelongUser().getName()} : <br/>
                             ${m.getContent()}
                             <br/>
                         </div>
