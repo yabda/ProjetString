@@ -1,6 +1,7 @@
 package controllers;
 
 import beans.Counterpart;
+import beans.Message;
 import beans.Project;
 import beans.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,30 @@ public class Controller {
     private CounterpartServiceInterface cS;
 
 
+    @Resource(name = "messageService")
+    private IMessageService mS;
+
+
+    @RequestMapping(value = "/AnswerMsg", method = RequestMethod.POST)
+    public String answerMsg(@RequestParam("mId") int mId,@RequestParam("pId") int pId,@RequestParam("content") String content,HttpSession session, Locale locale, Model model){
+        Project p = pS.getFromId(pId);
+        User u = (User)session.getAttribute("user");
+        Message m = mS.getFromId(mId);
+        mS.answerMsg(p,content,m);
+        model.addAttribute("project",p);
+
+        return project(p.getId(),session,locale,model);
+    }
+    @RequestMapping(value = "/sendMsg", method = RequestMethod.POST)
+    public String sendMsg(@RequestParam("pId") int pId,@RequestParam("content") String content,HttpSession session, Locale locale, Model model){
+        Project p = pS.getFromId(pId);
+        User u = (User)session.getAttribute("user");
+        mS.sendMsg(u,p,content);
+        model.addAttribute("project",p);
+        return project(p.getId(),session,locale,model);
+    }
+
+
     @RequestMapping(value = "/search", method=RequestMethod.POST)
     public  String search(@RequestParam("terms") String terms, HttpSession session, Locale locale, Model model){
 
@@ -57,18 +82,14 @@ public class Controller {
 
 
     @RequestMapping(value="/project/{projectId}")
-    public String project(@PathVariable String projectId, HttpSession session, Locale locale, Model model){
-        Project p = pS.getFromId(Integer.parseInt(projectId));
+    public String project(@PathVariable int projectId, HttpSession session, Locale locale, Model model){
+        Project p = pS.getFromId(projectId);
         Set<Counterpart> ret = new HashSet<>();
         List<Counterpart> tmp= cS.getFromProject(p);
         for (Counterpart cp : tmp) {
             ret.add(cp);
         }
         p.setCounterparts(ret);
-        //System.out.println("COUCOU!:" + p.getCounterparts().size());
-        for (Counterpart cp : p.getCounterparts()) {
-            //System.out.println(cp.getName());
-        }
         model.addAttribute("project",p);
 
         return "project/view";

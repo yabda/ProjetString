@@ -15,7 +15,7 @@ public class Message {
     private String content;
 
 
-    @OneToOne(mappedBy = "belongMessage")
+    @OneToOne(mappedBy = "belongMessage",cascade = CascadeType.ALL)
     private Answer belongAnswer;
 
     @ManyToOne
@@ -29,6 +29,12 @@ public class Message {
 
     public Message(String content) {
         this.content = content;
+    }
+
+    public Message(User u, Project p, String content){
+        this.setBelongUser(u);
+        this.setBelongProject(p);
+        this.setContent(content);
     }
 
     public int getId() {

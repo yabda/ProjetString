@@ -44,8 +44,8 @@ public class Project implements Comparable<Project>{
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<User> usersParticipation=new HashSet<>();
 
-    @OneToMany(mappedBy = "belongProject")
-    private Set<Message> messages=new HashSet<>();
+    @OneToMany(mappedBy = "belongProject", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private List<Message> messages=new ArrayList<>();
 
     @OneToMany(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
     private Set<Counterpart> counterparts=new HashSet<>();
@@ -165,11 +165,11 @@ public class Project implements Comparable<Project>{
         this.usersParticipation = usersParticipation;
     }
 
-    public Set<Message> getMessages() {
+    public List<Message> getMessages() {
         return messages;
     }
 
-    public void setMessages(Set<Message> messages) {
+    public void setMessages(List<Message> messages) {
         this.messages = messages;
     }
 

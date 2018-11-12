@@ -27,15 +27,7 @@
                         </c:if>
                     </div>
                     <div>${project.getCurrent()} / ${project.getGoal()} €</div>
-                    <div>
-                        <c:set var="time" scope="page" value="${Date()}"/>
-                        <c:if test="${time.after(project.getDeadLine())}">
-                            <h3>Time's up !</h3>
-                        </c:if>
-                        <c:if test="${!time.after(project.getDeadLine())}">
-                            <h3>${Integer.valueOf( (project.getDeadLine().getTime() - time.getTime()) / (1000 * 60 * 60 * 24))} days left !</h3>
-                        </c:if>
-                    </div>
+
                 </div>
             </div>
             <div class="row" id="mid-panel">
@@ -82,6 +74,45 @@
                             <p>You must be <a href="/login">connected</a> to pledge</p>
                         </div>
                     </c:if>
+                </div>
+                <div>
+                    <H2>QUESTION ZONE</H2>
+                    <div>
+                        <c:if test="${sessionScope.get('user').getName()!=null}">
+                        <form action="/sendMsg" method="POST">
+                            <p>
+                                Poser une question :  <input type=text name="content" />
+                                <input type="hidden" name="pId" value=${project.getId()}>
+                                <input type="submit" value="Send">
+                            </p>
+                        </form>
+                        </c:if>
+                        <c:if test="${sessionScope.get('user')==null}">
+                        You must be connected to send a message
+                        </c:if>
+                    </div>
+                    <c:forEach items="${project.getMessages()}" var="m">
+                        <div>
+                            ${m.getContent()}
+                            <br/>
+                        </div>
+                    <c:if test="${m.getBelongAnswer()!=null}">
+                        reponse de l'auteur :
+                        ${m.getBelongAnswer().getContent()}
+                    </c:if>
+                    <c:if test="${(sessionScope.get('user').getId() == project.getBelongUser().getId() && m.getBelongAnswer() == null)}">
+                        <form action="/AnswerMsg" method="POST">
+                            <p>
+                                <input type="hidden" name="pId" value=${project.getId()} >
+                                <input type="hidden" name="mId" value=${m.getId()} >
+                                Answer  <input type=text name="content" />
+                                <input type="submit" value="Send">
+                            </p>
+                        </form>
+                    </c:if>
+                        <br/>
+                        <br/>
+                </c:forEach>
                 </div>
             </div>
         </div>

@@ -25,6 +25,12 @@ public class Answer {
         this.content = content;
     }
 
+    public Answer(String content, Message m, User u){
+        this.content = content;
+        this.belongMessage = m;
+        this.belongUser = u;
+    }
+
     public Answer() {
     }
 

@@ -27,7 +27,7 @@ public class User {
     @Column(name = "updatedAt")
     private Date updatedAt;
 
-    @OneToMany(mappedBy = "belongUser")
+    @OneToMany(mappedBy = "belongUser",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Answer> answers=new HashSet<>();
 
     @OneToMany(mappedBy = "belongUser")
