@@ -65,9 +65,9 @@ public class Controller {
             ret.add(cp);
         }
         p.setCounterparts(ret);
-        System.out.println("COUCOU!:" + p.getCounterparts().size());
+        //System.out.println("COUCOU!:" + p.getCounterparts().size());
         for (Counterpart cp : p.getCounterparts()) {
-            System.out.println(cp.getName());
+            //System.out.println(cp.getName());
         }
         model.addAttribute("project",p);
 

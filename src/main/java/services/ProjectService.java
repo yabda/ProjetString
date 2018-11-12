@@ -125,6 +125,7 @@ public class ProjectService implements IProjectService {
                 u.setParticipeProjects(participe);
             }
             p.setParticipations(participations);
+
             update(p);
             return 1;
         }
