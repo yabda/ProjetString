@@ -46,7 +46,7 @@
                 <li class="nav-item"><a href="/login"><i class="nav-link fas fa-sign-in-alt fa-2x"></i></a></li>
             </c:if>
             <c:if test="${sessionScope.user != null}">
-                <li class="nav-item"><a href="#"><i class="nav-link fas fa-plus fa-2x"></i></a></li>
+                <li class="nav-item"><a href="/newProjet"><i class="nav-link fas fa-plus fa-2x"></i></a></li>
                 <li class="nav-item"><a href="/users/me"><i class="nav-link fas fa-cogs fa-2x"></i></a></li>
                 <li class="nav-item"><a href="/logout"><i class="nav-link fas fa-sign-out-alt fa-2x"></i></a></li>
             </c:if>
