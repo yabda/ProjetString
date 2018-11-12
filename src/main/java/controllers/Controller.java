@@ -117,6 +117,11 @@ public class Controller {
         return "redirect:/";
     }
 
+    @RequestMapping(value="/newProjet",method = RequestMethod.GET)
+    public String newProjet(HttpSession session, Locale locale, Model model) {
+        return "newProjet";
+    }
+
     @RequestMapping(value="/login", method = RequestMethod.POST )
     public String login(@RequestParam("name") String name, @RequestParam("password") String password, HttpSession session, Locale locale, Model model) {
         if (uS.isValid(name, password) != null) {
