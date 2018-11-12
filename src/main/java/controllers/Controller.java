@@ -84,7 +84,7 @@ public class Controller {
     @RequestMapping(value="/project/{projectId}")
     public String project(@PathVariable int projectId, HttpSession session, Locale locale, Model model){
         Project p = pS.getFromId(projectId);
-        Set<Counterpart> ret = new HashSet<>();
+        List<Counterpart> ret = new ArrayList<>();
         List<Counterpart> tmp= cS.getFromProject(p);
         for (Counterpart cp : tmp) {
             ret.add(cp);

@@ -48,7 +48,7 @@ public class Project implements Comparable<Project>{
     private List<Message> messages=new ArrayList<>();
 
     @OneToMany(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
-    private Set<Counterpart> counterparts=new HashSet<>();
+    private List<Counterpart> counterparts=new ArrayList<>();
 
     @ManyToOne
     private Category category;
@@ -173,11 +173,11 @@ public class Project implements Comparable<Project>{
         this.messages = messages;
     }
 
-    public Set<Counterpart> getCounterparts() {
+    public List<Counterpart> getCounterparts() {
         return counterparts;
     }
 
-    public void setCounterparts(Set<Counterpart> counterparts) {
+    public void setCounterparts(List<Counterpart> counterparts) {
         this.counterparts = counterparts;
     }
 
