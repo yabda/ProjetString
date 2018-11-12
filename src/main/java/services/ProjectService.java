@@ -91,7 +91,6 @@ public class ProjectService implements IProjectService {
     *
     * add user to the project Userparticipations list if not already in
     * add user to the project participations list or update amount if already in
-    *
     * and push project to DB
     *
     * */

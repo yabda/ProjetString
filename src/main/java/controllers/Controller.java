@@ -99,7 +99,10 @@ public class Controller {
     public String donation(@RequestParam("pId") int pId,@RequestParam("donationValue") int donation, HttpSession session, Locale locale, Model model){
         Project p = pS.getFromId(pId);
         User uSess = (User)session.getAttribute("user");
-        if (uSess !=null){
+        if (uSess !=null && p.getGoal() != p.getCurrent()){
+            if (p.getGoal()-p.getCurrent() < donation){
+                donation = p.getGoal()-p.getCurrent();
+            }
             User u = uS.getFromId(uSess.getId());
             pS.donation(u,p,donation);
         }

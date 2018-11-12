@@ -22,7 +22,7 @@
             <c:forEach items="${searchResult}" var="p">
                 <div class="col-md-4">
                     <div>
-                        <a href="/Project/${p.getId()}"><h2>${p.getTitle()}</h2></a>
+                        <a href="/project/${p.getId()}"><h2>${p.getTitle()}</h2></a>
                     </div>
                 </div>
             </c:forEach>
