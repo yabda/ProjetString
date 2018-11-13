@@ -25,6 +25,13 @@
     padding-right: 100px;
 }
 
+#bottom-panel > .col-md-8 {
+     border-radius: 5px;
+     background-color: #ececec;
+     padding-right: 100px;
+     margin-top : 10px;
+}
+
 #mid-panel > .col-md-3 {
     border-radius: 5px;
     background-color: #ececec;

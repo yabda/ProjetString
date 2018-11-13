@@ -33,7 +33,7 @@ public class User {
     @OneToMany(mappedBy = "belongUser", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Message> messages=new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "usersParticipation", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "usersParticipation", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Column(columnDefinition = "participe")
     private Set<Project> participeProjects=new HashSet<>();
 
