@@ -16,7 +16,7 @@ import java.util.Map;
 
 @Service("userService")
 public class UserService implements UserServiceInterface {
-    @PersistenceContext(type = PersistenceContextType.EXTENDED)
+    @PersistenceContext()
     private EntityManager em;
 
 
@@ -33,9 +33,11 @@ public class UserService implements UserServiceInterface {
         return q.getResultList();
     }
 
+    @Transactional
     @Override
     public void insert(User user) {
         MessageDigest md = null;
+        System.out.println("pass before sha : "+user.getPassword());
         try {
             md = MessageDigest.getInstance("SHA-1");
         }
@@ -47,10 +49,10 @@ public class UserService implements UserServiceInterface {
         for (int i = 0; i < result.length; i++) {
             sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
         }
-        List<User> list = findAll();
 
         user.setPassword(sb.toString());
-        em.clear();
+        System.out.println("pass de "+user.getId()+" sha : "+user.getPassword());
+
         em.persist(user);
     }
 

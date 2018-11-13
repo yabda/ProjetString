@@ -30,14 +30,14 @@ public class User {
     @OneToMany(mappedBy = "belongUser",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Answer> answers=new HashSet<>();
 
-    @OneToMany(mappedBy = "belongUser")
+    @OneToMany(mappedBy = "belongUser", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Message> messages=new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "usersParticipation", cascade = CascadeType.ALL)
     @Column(columnDefinition = "participe")
     private Set<Project> participeProjects=new HashSet<>();
 
-    @OneToMany(mappedBy = "belongUser")
+    @OneToMany(mappedBy = "belongUser", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @Column(columnDefinition = "create")
     private Set<Project> createdProjects=new HashSet<>();
 
