@@ -13,7 +13,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="main">
-        <div class="container-fluid" style="padding-left: 100px; padding-right: 100px;">
+        <div class="container-fluid" style="padding-left: 200px; padding-right: 100px;">
             <div class="row"></div>
             <div class="row" id="top-panel">
                 <div class="col-md-12">
@@ -42,7 +42,7 @@
                     </ul>
                 </div>
                 <div class="col-md-1"></div>
-                <div class="col-md-3">
+                    <div class="col-md-3">
                     <h2>Pledge</h2>
                     <c:forEach items="${project.getCounterparts()}" var="counterpart">
                         <div class="counterpart" onclick="$('#donationValue').val(${counterpart.getPrice()});">
@@ -75,7 +75,10 @@
                         </div>
                     </c:if>
                 </div>
-                <div>
+            </div>
+            <div class="row"></div>
+             <div class="row" id="bottom-panel">
+                <div class="col-md-8 ">
                     <H2>QUESTION ZONE</H2>
                     <div>
                         <c:if test="${sessionScope.get('user').getName()!=null}">
@@ -115,7 +118,7 @@
                         <br/>
                 </c:forEach>
                 </div>
-            </div>
+             </div>
         </div>
     </jsp:attribute>
 </t:layout>

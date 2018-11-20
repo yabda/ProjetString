@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service("counterpartService")
@@ -53,6 +54,8 @@ public class CounterpartService implements CounterpartServiceInterface {
             if (c.getBelongProject().getId() == p.getId())
                 ret.add(c);
         }
+        ret.sort(Comparator.comparing(Counterpart::getPrice));
+
         return ret;
     }
 

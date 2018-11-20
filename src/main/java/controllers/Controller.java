@@ -86,7 +86,7 @@ public class Controller {
     @RequestMapping(value="/project/{projectId}")
     public String project(@PathVariable int projectId, HttpSession session, Locale locale, Model model){
         Project p = pS.getFromId(projectId);
-        Set<Counterpart> ret = new HashSet<>();
+        List<Counterpart> ret = new ArrayList<>();
         List<Counterpart> tmp= cS.getFromProject(p);
         for (Counterpart cp : tmp) {
             ret.add(cp);
@@ -101,7 +101,10 @@ public class Controller {
     public String donation(@RequestParam("pId") int pId,@RequestParam("donationValue") int donation, HttpSession session, Locale locale, Model model){
         Project p = pS.getFromId(pId);
         User uSess = (User)session.getAttribute("user");
-        if (uSess !=null){
+        if (uSess !=null && p.getGoal() != p.getCurrent()){
+            if (p.getGoal()-p.getCurrent() < donation){
+                donation = p.getGoal()-p.getCurrent();
+            }
             User u = uS.getFromId(uSess.getId());
             pS.donation(u,p,donation);
         }

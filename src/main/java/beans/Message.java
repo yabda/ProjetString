@@ -11,7 +11,7 @@ public class Message {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "content")
+    @Column(name = "content",length = 1024)
     private String content;
 
 
