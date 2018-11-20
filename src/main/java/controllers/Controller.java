@@ -15,6 +15,8 @@ import services.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @org.springframework.stereotype.Controller
@@ -206,5 +208,20 @@ public class Controller {
             user = u;
             return "redirect:/users/me";
         }
+    }
+
+    @RequestMapping(value = "newProjet", method = RequestMethod.POST)
+    public String addProject(@RequestParam("projectName") String projectName,@RequestParam("description") String description,@RequestParam("deadline") String deadline,@RequestParam("goal") int goal, HttpSession session, Locale locale, Model model) throws ParseException {
+        //Date dl=new Date(deadline);
+        SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+        Date d = sdf.parse(deadline);
+        Project p = new Project(projectName,description,goal,d);
+        p.setBelongUser(user);
+        pS.insert(p);
+
+        System.out.println(p.getTitle() + p.getDescription()+p.getGoal()+p.getDeadLine());
+
+        //System.out.println(deadline);
+        return "newProjet";
     }
 }
