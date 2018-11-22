@@ -1,9 +1,6 @@
 package controllers;
 
-import beans.Counterpart;
-import beans.Message;
-import beans.Project;
-import beans.User;
+import beans.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
 import org.springframework.ui.Model;
@@ -36,6 +33,8 @@ public class Controller {
 
     @Resource(name = "messageService")
     private IMessageService mS;
+    @Resource(name = "categoryService")
+    private CategoryServiceInterface catS;
 
 
     @RequestMapping(value = "/AnswerMsg", method = RequestMethod.POST)
@@ -93,7 +92,6 @@ public class Controller {
         }
         p.setCounterparts(ret);
         model.addAttribute("project",p);
-
         return "project/view";
     }
 
@@ -121,7 +119,35 @@ public class Controller {
 
     @RequestMapping(value="/newProjet",method = RequestMethod.GET)
     public String newProjet(HttpSession session, Locale locale, Model model) {
+        List<String> categories=new ArrayList<>();
+        for (Category cat : catS.findAll())
+        {
+            categories.add(cat.getName());
+            System.out.println(cat.getName());
+        }
+        model.addAttribute("c",categories);
         return "newProjet";
+    }
+
+    @RequestMapping(value="/myProject",method = RequestMethod.GET)
+    public String myProject(HttpSession session, Locale locale, Model model) {
+        return "myProject";
+    }
+
+
+    @RequestMapping(value="/modifyProjet/{projectId}")
+    public String myproject(@PathVariable int projectId, HttpSession session, Locale locale, Model model){
+
+        Project p = pS.getFromId(projectId);
+        List<Counterpart> ret = new ArrayList<>();
+        List<Counterpart> tmp= cS.getFromProject(p);
+        for (Counterpart cp : tmp) {
+            ret.add(cp);
+        }
+        p.setCounterparts(ret);
+        model.addAttribute("project",p);
+
+        return "modifyProjet";
     }
 
     @RequestMapping(value="/login", method = RequestMethod.POST )
@@ -215,16 +241,16 @@ public class Controller {
 
     @RequestMapping(value = "newProjet", method = RequestMethod.POST)
     public String addProject(@RequestParam("projectName") String projectName,@RequestParam("description") String description,@RequestParam("deadline") String deadline,@RequestParam("goal") int goal, HttpSession session, Locale locale, Model model) throws ParseException {
-        //Date dl=new Date(deadline);
+
         SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
         Date d = sdf.parse(deadline);
         Project p = new Project(projectName,description,goal,d);
         p.setBelongUser(user);
         pS.insert(p);
 
-        System.out.println(p.getTitle() + p.getDescription()+p.getGoal()+p.getDeadLine());
+        System.out.println(p.getTitle() + p.getDescription()+p.getGoal()+p.getDeadLine()+p.getBelongUser().getName());
 
         //System.out.println(deadline);
-        return "newProjet";
+        return "redirect: /newProjet";
     }
 }
