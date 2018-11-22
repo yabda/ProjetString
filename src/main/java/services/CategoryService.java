@@ -10,7 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
-@Service("CategoryService")
+@Service("categoryService")
 public class CategoryService implements CategoryServiceInterface{
 
 
