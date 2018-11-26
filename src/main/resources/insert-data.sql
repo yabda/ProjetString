@@ -14,6 +14,6 @@ INSERT INTO Project(id,title,description,goal,current,deadLine,createdAt,failed,
 INSERT INTO Project(id,title,description,goal,current,deadLine,createdAt,failed,belonguser_id,category_id,updatedAt) VALUES (12,'Parrainez un Yanis','Nous accueillons notamment un groupe de pythons geants, espèce classée en danger critique d’extinction',10000,0,'2018-12-13','2018-10-13',0,3,1,'2018-10-13');
 INSERT INTO Project(id,title,description,goal,current,deadLine,createdAt,failed,belonguser_id,category_id,updatedAt) VALUES (13,'Achetez moi une switch','Sans le sou, le jeune Yanis cherche un moyen de se divertir, pouvez vous lui venir en aide',10000,0,'2020-12-13','2017-10-13',0,1,2,'2018-10-13');
 
-INSERT INTO COUNTERPART(id,description,name,price,belongproject_id) VALUES (1,'Un grand merci !','Baby',5,10);
-INSERT INTO COUNTERPART(id,description,name,price,belongproject_id) VALUES (2,'Certificat de parrainage et fiche de présentation avec portrait photo de l''animal','Papa',25,10);
-INSERT INTO COUNTERPART(id,description,name,price,belongproject_id) VALUES (3,'Ramener votre panda chez vous!','Moma',500,10);
+INSERT INTO COUNTERPART(id,description,name,price,belongproject_id) VALUES (10,'Un grand merci !','Baby',5,10);
+INSERT INTO COUNTERPART(id,description,name,price,belongproject_id) VALUES (11,'Certificat de parrainage et fiche de présentation avec portrait photo de l''animal','Papa',25,10);
+INSERT INTO COUNTERPART(id,description,name,price,belongproject_id) VALUES (12,'Ramener votre panda chez vous!','Moma',500,10);

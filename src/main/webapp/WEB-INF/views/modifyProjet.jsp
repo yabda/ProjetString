@@ -14,9 +14,12 @@
 
             <h1>Edit projet : ${project.getTitle()}</h1>
             <form method="POST" role="form" action="/updateProject">
+                <div>
+                    <input class="form-control" type="hidden" type="number" id="IDProjet" name="IDProjet" min="0" value=${project.getId()}>
+                </div>
                 <div class="form-group">
                     <label for="projectName">Nom du projet</label>
-                    <input type="text" class="form-control" id="projectName" name="projectName" placeholder="${project.getTitle()}">
+                    <input type="text" class="form-control" id="projectName" name="projectName" value="${project.getTitle()}">
                 </div>
 
                 <div class="form-group">
@@ -30,8 +33,18 @@
                 <div class="form-group">
                     <label for="categorie">Categorie</label>
                     <select class="form-control" id="categorie" name="category">
+
                         <c:forEach  items="${categories}" var="c">
-                            <option value=${c.getId()}>${c.getName()}</option>
+
+                            <c:if test="${c.getName() == project.getCategory().getName()}">
+                                <option value=${c.getId()} selected>${c.getName()}</option>
+                            </c:if>
+
+                            <c:if test="${c.getName() != project.getCategory().getName()}">
+                                <option value=${c.getId()}>${c.getName()}</option>
+                            </c:if>
+
+
                         </c:forEach>
                     </select>
                 </div>
@@ -44,6 +57,35 @@
                 <button class="btn btn-primary" type="submit">Sauver le projet</button>
             </form>
 
+            <div>
+            <h3>Contreparties</h3>
+                <c:forEach items="${project.getCounterparts()}" var="counterpart">
+                    <h3>${counterpart.getName()}</h3>
+                    <p>${counterpart.getDescription()}</p>
+                    <p>${counterpart.getGoal()}</p>
+                </c:forEach>
+            </div>
+            <h3>Ajouter une contrepartie</h3>
+            <div>
+                <form method="POST" role="form" action="/addCounterPart">
+                    <div>
+                        <input class="form-control" type="hidden" type="number" id="IDProjet" name="IDProjet" min="0" value=${project.getId()}>
+                    </div>
+                    <div class="form-group">
+                        <label for="cpName">Nom</label>
+                        <input class="form-control" id="cpName" name="cpName" ></input>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Prix</label>
+                        <input class="form-control" type="number" id="price" name="price" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="cpDescription">Description</label>
+                        <textarea class="form-control" id="cpDescription" rows="3" name="cpDescription" ></textarea>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Ajouter la contrepartie</button>
+                </form>
+            </div>
         </div>
 
     </jsp:attribute>

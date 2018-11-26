@@ -241,13 +241,38 @@ public class Controller {
     }
 
     @RequestMapping(value = "/updateProject", method = RequestMethod.POST)
-    public String modifyProject(@RequestParam("projectName") String projectName,@RequestParam("description") String description,@RequestParam("deadline") String deadline, @RequestParam("goal") int goal, @RequestParam("category") int category, HttpSession session, Locale locale, Model model) throws ParseException {
+    public String modifyProject(@RequestParam("IDProjet") int IDProjet, @RequestParam("projectName") String projectName,@RequestParam("description") String description,@RequestParam("deadline") String deadline, @RequestParam("goal") int goal, @RequestParam("category") int category, HttpSession session, Locale locale, Model model) throws ParseException {
+
+        Project p = pS.getFromId(IDProjet);
+
+        System.out.println("AVANT:"+p.getId()+p.getTitle() + p.getDescription()+p.getGoal()+p.getDeadLine()+p.getBelongUser().getName()+p.getCategory().getName());
 
         SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
         Date d = sdf.parse(deadline);
-        Project p = new Project(projectName,description,goal,d);
-        System.out.println(category);
+
+        p.setTitle(projectName);
         p.setCategory(catS.getFromId(category));
+        p.setDeadLine(d);
+        p.setDescription(description);
+        p.setGoal(goal);
+
+        pS.update(p);
+
+        p = pS.getFromId(IDProjet);
+        System.out.println("APRES:"+p.getId()+p.getTitle() + p.getDescription()+p.getGoal()+p.getDeadLine()+p.getBelongUser().getName()+p.getCategory().getName());
+
+        return "redirect: /modifyProjet/" + p.getId();
+    }
+
+    @RequestMapping(value = "addCounterPart", method = RequestMethod.POST)
+    public String addCounterPart(@RequestParam("IDProjet") int IDProjet,@RequestParam("cpName") String cpName,@RequestParam("cpDescription") String cpDescription, @RequestParam("price") int price, HttpSession session, Locale locale, Model model) throws ParseException {
+        Project p = pS.getFromId(IDProjet);
+        System.out.println(cpName+cpDescription+price);
+        Counterpart c=new Counterpart(price,cpName,cpDescription);
+        cS.insert(c);
+        List<Counterpart> cpL=p.getCounterparts();
+        cpL.add(c);
+        p.setCounterparts(cpL);
         pS.update(p);
         return "redirect: /modifyProjet/" + p.getId();
     }
