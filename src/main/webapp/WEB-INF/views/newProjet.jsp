@@ -13,7 +13,7 @@
         <div class="container-fluid">
 
             <h1>Nouveau projet</h1>
-            <form method="post" role="form" action="newProjet">
+            <form method="POST" role="form" action="newProjet">
                 <div class="form-group">
                     <label for="projectName">Nom du projet</label>
                     <input type="text" class="form-control" id="projectName" name="projectName" placeholder="Mon projet">
@@ -29,12 +29,10 @@
 
                 <div class="form-group">
                     <label for="categorie">Categorie</label>
-                    <select class="form-control" id="categorie">
-                        <option>${c.get(1)}</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                    <select class="form-control" id="categorie" name="category">
+                        <c:forEach  items="${categories}" var="c">
+                            <option value="${c.getId()}">${c.getName()}</option>
+                        </c:forEach>
                     </select>
                 </div>
 
@@ -42,64 +40,11 @@
                     <label for="description">Description</label>
                     <textarea class="form-control" id="description" rows="3" name="description"></textarea>
                 </div>
-
-                <div class="cp">
-                    <h3>Contreparties</h3>
-
-                    <div class="col-md-4 mb-4">
-                        <label for="nbCp">Nombre de contrepartie</label>
-                        <input type="number" class="form-control is-valid" id="nbCp" min=0 placeholder="Valeur">
-                        <div class="valid-feedback">
-                            Looks good!
-                        </div>
-                        <button type="button" class="btn btn-info" onclick="ajoutCP()">Valider</button>
-                    </div>
-                    <div id="cpDiv">
-
-                    </div>
-                </div>
                 <button class="btn btn-primary" type="submit">Créer le projet</button>
             </form>
 
         </div>
 
-
-        <script>
-            function ajoutCP() {
-
-                var nb=document.getElementById("nbCp").value;
-                var i;
-                var string="";
-                for (i = 0; i < nb; i++) {
-                    string=string+"<h4>Counterpart "+i+"</h4><div class=\"form-row\">" +
-                        "\n" +
-                        "                        <div class=\"col-md-4 mb-4\">\n" +
-                        "                            <label for=\"NomCP\">Nom</label>\n" +
-                        "                            <input type=\"text\" class=\"form-control is-valid\" id=\"NomCP\" placeholder=\"Nom\" required>\n" +
-                        "                            <div class=\"valid-feedback\">\n" +
-                        "                                Looks good!\n" +
-                        "                            </div>\n" +
-                        "                        </div>\n" +
-                        "\n" +
-                        "                        <div class=\"col-md-4 mb-4\">\n" +
-                        "                            <label for=\"Valeur\">Valeur</label>\n" +
-                        "                            <input type=\"number\" class=\"form-control is-valid\" id=\"Valeur\" placeholder=\"Valeur\" required>\n" +
-                        "                            <div class=\"valid-feedback\">\n" +
-                        "                                Looks good!\n" +
-                        "                            </div>\n" +
-                        "                        </div>\n" +
-                        "                        <div class=\"col-md-4 mb-4\">\n" +
-                        "                            <label for=\"descriptionCP\">Description</label>\n" +
-                        "                            <textarea class=\"form-control is-valid\" id=\"descriptionCP\" rows=\"3\" required></textarea>\n" +
-                        "                            <div class=\"valid-feedback\">\n" +
-                        "                                Looks good!\n" +
-                        "                            </div>\n" +
-                        "                        </div>\n" +
-                        "                    </div>"
-                }
-                document.getElementById('cpDiv').innerHTML=string;
-            }
-        </script>
     </jsp:attribute>
 </t:layout>
 

@@ -75,6 +75,7 @@ public class ProjectService implements IProjectService {
 
         Project p = em.merge(project);
         return (p!=project?0:1);
+
     }
 
     @Override

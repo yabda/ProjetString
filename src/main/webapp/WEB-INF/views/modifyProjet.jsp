@@ -13,7 +13,7 @@
         <div class="container-fluid">
 
             <h1>Edit projet : ${project.getTitle()}</h1>
-            <form method="post" role="form" action="">
+            <form method="POST" role="form" action="/updateProject">
                 <div class="form-group">
                     <label for="projectName">Nom du projet</label>
                     <input type="text" class="form-control" id="projectName" name="projectName" placeholder="${project.getTitle()}">
@@ -29,18 +29,16 @@
 
                 <div class="form-group">
                     <label for="categorie">Categorie</label>
-                    <select class="form-control" id="categorie">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                    <select class="form-control" id="categorie" name="category">
+                        <c:forEach  items="${categories}" var="c">
+                            <option value=${c.getId()}>${c.getName()}</option>
+                        </c:forEach>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea class="form-control" id="description" rows="3" name="description" placeholder="${project.getDescription()}"></textarea>
+                    <textarea class="form-control" id="description" rows="3" name="description" >${project.getDescription()}</textarea>
                 </div>
 
                 <button class="btn btn-primary" type="submit">Sauver le projet</button>
