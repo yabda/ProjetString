@@ -4,6 +4,7 @@ import beans.Counterpart;
 import beans.Project;
 import beans.User;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -31,6 +32,7 @@ public class CounterpartService implements CounterpartServiceInterface {
     }
 
     @Override
+    @Transactional
     public void insert(Counterpart counterpart) {
         em.persist(counterpart);
     }

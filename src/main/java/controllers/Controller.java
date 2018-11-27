@@ -269,11 +269,8 @@ public class Controller {
         Project p = pS.getFromId(IDProjet);
         System.out.println(cpName+cpDescription+price);
         Counterpart c=new Counterpart(price,cpName,cpDescription);
+        c.setBelongProjet(p);
         cS.insert(c);
-        List<Counterpart> cpL=p.getCounterparts();
-        cpL.add(c);
-        p.setCounterparts(cpL);
-        pS.update(p);
         return "redirect: /modifyProjet/" + p.getId();
     }
 
