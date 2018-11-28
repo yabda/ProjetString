@@ -1,9 +1,6 @@
 package services;
 
 import beans.Category;
-import beans.Counterpart;
-import beans.Message;
-import beans.Project;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -12,7 +9,7 @@ import javax.persistence.Query;
 import java.util.List;
 
 @Service("categoryService")
-public class CategoryService implements CategoryServiceInterface{
+public class CategoryService implements ICategoryService {
 
 
     @PersistenceContext

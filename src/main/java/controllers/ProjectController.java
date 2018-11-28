@@ -26,16 +26,16 @@ public class ProjectController {
     private IProjectService pS;
 
     @Resource(name = "userService")
-    private UserServiceInterface uS;
+    private IUserService uS;
 
     @Resource(name = "counterpartService")
-    private CounterpartServiceInterface cS;
+    private ICounterpartService cS;
 
     @Resource(name = "messageService")
     private IMessageService mS;
 
     @Resource(name = "categoryService")
-    private CategoryServiceInterface catS;
+    private ICategoryService catS;
 
 
     @RequestMapping(value="{projectId}")
@@ -119,10 +119,7 @@ public class ProjectController {
     public String donation(@RequestParam("pId") int pId,@RequestParam("donationValue") int donation, HttpSession session, Locale locale, Model model){
         Project p = pS.getFromId(pId);
         User uSess = (User)session.getAttribute("user");
-        if (uSess !=null && p.getGoal() != p.getCurrent()){
-            if (p.getGoal()-p.getCurrent() < donation){
-                donation = p.getGoal()-p.getCurrent();
-            }
+        if (uSess !=null){
             User u = uS.getFromId(uSess.getId());
             pS.donation(u,p,donation);
         }

@@ -5,7 +5,7 @@ import beans.User;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-public interface UserServiceInterface {
+public interface IUserService {
     List<User> findAll();
     List<User> findAll(int limit);
 

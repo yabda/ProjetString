@@ -1,6 +1,5 @@
 package services;
 
-import beans.Project;
 import beans.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,12 +10,10 @@ import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service("userService")
-public class UserService implements UserServiceInterface {
+public class UserService implements IUserService {
     @PersistenceContext()
     private EntityManager em;
 

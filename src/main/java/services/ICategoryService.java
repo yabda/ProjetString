@@ -6,7 +6,7 @@ import beans.Project;
 
 import java.util.List;
 
-public interface CategoryServiceInterface {
+public interface ICategoryService {
     List<Category> findAll();
     public Category getFromId(int id);
 }

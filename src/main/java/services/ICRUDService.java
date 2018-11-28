@@ -5,7 +5,7 @@ import beans.User;
 
 import java.util.List;
 
-public interface CRUDService<T> {
+public interface ICRUDService<T> {
 
     List<T> findAll();
     List<T> findAll(int limit);

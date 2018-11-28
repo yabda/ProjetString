@@ -25,7 +25,7 @@ public class MessageService implements IMessageService {
     private IProjectService pS;
 
     @Resource(name = "userService")
-    private UserServiceInterface uS;
+    private IUserService uS;
 
     @Override
     public List<Message> findAll() {

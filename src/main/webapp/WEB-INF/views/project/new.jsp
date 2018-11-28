@@ -4,6 +4,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<jsp:useBean id="now" class="java.util.Date"/>
 
 <t:layout>
     <jsp:attribute name="header">
@@ -13,7 +14,7 @@
         <div class="container-fluid">
 
             <h1>Nouveau projet</h1>
-            <form method="POST" role="form" action="project/new">
+            <form method="POST" role="form" action="/project/new">
                 <div class="form-group">
                     <label for="projectName">Nom du projet</label>
                     <input type="text" class="form-control" id="projectName" name="projectName" placeholder="Mon projet">
@@ -21,7 +22,7 @@
 
                 <div class="form-group">
                     <label for="deadline">Fin du projet</label>
-                    <input class="form-control" type="date" id="deadline" name="deadline">
+                    <input class="form-control" type="date" id="deadline" name="deadline" min="${now}">
 
                     <label for="goal">Objectif</label>
                     <input class="form-control" type="number" id="goal" name="goal" min="0">

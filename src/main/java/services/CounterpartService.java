@@ -2,7 +2,6 @@ package services;
 
 import beans.Counterpart;
 import beans.Project;
-import beans.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +13,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @Service("counterpartService")
-public class CounterpartService implements CounterpartServiceInterface {
+public class CounterpartService implements ICounterpartService {
     @PersistenceContext
     private EntityManager em;
 

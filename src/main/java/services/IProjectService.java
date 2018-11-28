@@ -7,7 +7,7 @@ import beans.User;
 import java.util.Date;
 import java.util.List;
 
-public interface IProjectService extends CRUDService<Project> {
+public interface IProjectService extends ICRUDService<Project> {
 
     int donation(User u, Project p, int val);
     List<Project> search(String terms);

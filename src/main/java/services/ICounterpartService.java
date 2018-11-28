@@ -5,7 +5,7 @@ import beans.Project;
 
 import java.util.List;
 
-public interface CounterpartServiceInterface {
+public interface ICounterpartService {
     List<Counterpart> findAll();
     List<Counterpart> findAll(int limit);
 

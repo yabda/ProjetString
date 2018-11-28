@@ -1,19 +1,13 @@
 package controllers;
 
 import beans.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.NoHandlerFoundException;
-import org.w3c.dom.css.Counter;
 import services.*;
 
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static java.lang.Integer.parseInt;
@@ -26,17 +20,17 @@ public class Controller {
     private IProjectService pS;
 
     @Resource(name = "userService")
-    private UserServiceInterface uS;
+    private IUserService uS;
 
     @Resource(name = "counterpartService")
-    private CounterpartServiceInterface cS;
+    private ICounterpartService cS;
 
 
     @Resource(name = "messageService")
     private IMessageService mS;
 
     @Resource(name = "categoryService")
-    private CategoryServiceInterface catS;
+    private ICategoryService catS;
 
 
 

@@ -18,7 +18,7 @@ public class ProjectService implements IProjectService {
     private EntityManager em;
 
     @Resource(name = "userService")
-    private UserServiceInterface uS;
+    private IUserService uS;
 
 
     public List<Project> search(String terms){
@@ -73,7 +73,6 @@ public class ProjectService implements IProjectService {
     @Override
     @Transactional
     public int update(Project project) {
-
         Project p = em.merge(project);
         return (p!=project?0:1);
 
@@ -112,18 +111,12 @@ public class ProjectService implements IProjectService {
     @Override
     @Transactional
     public int donation(User u, Project p, int val){
-        if (p.getCurrent()<p.getGoal() || val <=0 || p.getDeadLine().after(new Date())|| u ==null){
-            if (p.getCurrent()+val <= p.getGoal()) {     //update current project amount
-                p.setCurrent(p.getCurrent()+val);
-            }
-            else
-            {
-                p.setCurrent(p.getGoal());
-            }
+        if (val <=0 || p.getDeadLine().after(new Date())|| u ==null){
+            p.setCurrent(p.getCurrent()+val);                                       //update current project amount
             Map<Integer,Float> participations = p.getParticipations();
-            if (participations.containsKey(u.getId())){     //Update total donation amount if already in participant
+            if (participations.containsKey(u.getId())){                             //Update total donation amount if already in participant
                 participations.replace(u.getId(),(participations.get(u.getId())+val));
-            }else{  //if first donation by this user add him to needed list
+            }else{                                                                  //if first donation by this user add him to needed list
                 Set<User> userParticipation = p.getUsersParticipation();
                 userParticipation.add(u);
                 p.setUsersParticipation(userParticipation);
@@ -144,7 +137,6 @@ public class ProjectService implements IProjectService {
             return 1;
         }
         else {
-            System.out.println("project over, no donation added");
             return -1;  // null donation or project already over
         }
     }
