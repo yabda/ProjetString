@@ -63,7 +63,7 @@
                                 <h2>Question area</h2>
                                 <div>
                                     <c:if test="${sessionScope.get('user').getName()!=null}">
-                                        <form action="/sendMsg" class="form-horizontal" method="post" role="form">
+                                        <form action="/project/sendMsg" class="form-horizontal" method="post" role="form">
                                             <div class="form-group">
                                                 <label for="content">Ask something :</label>
                                                 <div>
@@ -94,7 +94,7 @@
                                             </div>
                                         </c:if>
                                         <c:if test="${(sessionScope.get('user').getId() == project.getBelongUser().getId() && m.getBelongAnswer() == null)}">
-                                            <form action="/AnswerMsg" class="form-horizontal" method="post" role="form">
+                                            <form action="/project/answerMsg" class="form-horizontal" method="post" role="form">
                                                 <div class="form-group">
                                                     <label for="content">Answer something :</label>
                                                     <div><input id="content" class="form-control" type=text min="1" name="content" placeholder="Question" required/></div>
@@ -130,7 +130,7 @@
                                 <c:if test="${!time.after(project.getDeadLine())}">
                                     <c:if test="${sessionScope.get('user') != null}">
                                         <div class="donate">
-                                            <form class="form-horizontal" method="post" role="form" action="/donation">
+                                            <form class="form-horizontal" method="post" role="form" action="/project/donation">
                                                 <div class="form-group">
                                                     <label for="donationValue">Donation :</label>
                                                     <input type="hidden" name="pId" value=${project.getId()} >
