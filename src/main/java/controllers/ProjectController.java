@@ -72,6 +72,8 @@ public class ProjectController {
     @RequestMapping(value = "new", method = RequestMethod.GET)
     public String newProjet(HttpSession session, Locale locale, Model model) {
         model.addAttribute("categories",catS.findAll());
+        Date d = new Date();
+        model.addAttribute("today",new SimpleDateFormat("yy-MM-dd").format(d));
         return "project/new";
     }
 
@@ -79,13 +81,14 @@ public class ProjectController {
     public String addProject(@RequestParam("projectName") String projectName, @RequestParam("description") String description, @RequestParam("deadline") String deadline, @RequestParam("goal") int goal, @RequestParam("category") int category, HttpSession session, Locale locale, Model model) throws ParseException {
 
         Date d = new SimpleDateFormat("yy-MM-dd").parse(deadline);
+
         Project p = new Project(projectName,description,goal,d);
         p.setBelongUser((User)session.getAttribute("user"));
         p.setCategory(catS.getFromId(category));
         pS.insert(p);
         uS.updateUserSession(session);
 
-        return "redirect: /project/new";
+        return "redirect: /project/"+p.getId();
     }
 
     @RequestMapping(value = "answerMsg", method = RequestMethod.POST)
