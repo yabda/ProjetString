@@ -53,7 +53,7 @@
                     </c:forEach>
                     <c:if test="${sessionScope.get('user') != null}">
                         <div class="donate">
-                            <form class="form-horizontal" method="post" role="form" action="/donation">
+                            <form class="form-horizontal" method="post" role="form" action="/project/donation">
                                 <div class="form-group">
                                     <label for="donationValue">Donation :</label>
                                     <input type="hidden" name="pId" value=${project.getId()} >
@@ -82,7 +82,7 @@
                     <H2>QUESTION ZONE</H2>
                     <div>
                         <c:if test="${sessionScope.get('user').getName()!=null}">
-                        <form action="/sendMsg" method="POST">
+                        <form action="/project/sendMsg" method="POST">
                             <p>
                                 Poser une question :  <input type=text name="content" />
                                 <input type="hidden" name="pId" value=${project.getId()}>
@@ -105,7 +105,7 @@
                         ${m.getBelongAnswer().getContent()}
                     </c:if>
                     <c:if test="${(sessionScope.get('user').getId() == project.getBelongUser().getId() && m.getBelongAnswer() == null)}">
-                        <form action="/AnswerMsg" method="POST">
+                        <form action="/project/answerMsg" method="POST">
                             <p>
                                 <input type="hidden" name="pId" value=${project.getId()} >
                                 <input type="hidden" name="mId" value=${m.getId()} >
