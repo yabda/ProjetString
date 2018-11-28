@@ -133,8 +133,17 @@ public class Controller {
     @RequestMapping(value="/modifyProjet/{projectId}", method = RequestMethod.GET)
     public String myproject(@PathVariable int projectId, HttpSession session, Locale locale, Model model){
         Project p = pS.getFromId(projectId);
+
+        List<Counterpart> ret = new ArrayList<>();
+        List<Counterpart> tmp= cS.getFromProject(p);
+        for (Counterpart cp : tmp) {
+            ret.add(cp);
+        }
+        p.setCounterparts(ret);
+
         model.addAttribute("project",p);
         model.addAttribute("categories",catS.findAll());
+
         return "modifyProjet";
     }
 
@@ -282,6 +291,24 @@ public class Controller {
         Counterpart c=new Counterpart(price,cpName,cpDescription);
         c.setBelongProjet(p);
         cS.insert(c);
+
+        return "redirect: /modifyProjet/" + p.getId();
+    }
+
+    @RequestMapping(value = "removeCounterPart", method = RequestMethod.POST)
+    public String removeCounterPart(@RequestParam("IDProjet") int IDProjet,@RequestParam("CP") int CPid, HttpSession session, Locale locale, Model model) throws ParseException {
+        Project p = pS.getFromId(IDProjet);
+
+        cS.destroy(CPid);
+
+        List<Counterpart> ret = new ArrayList<>();
+        List<Counterpart> tmp= cS.getFromProject(p);
+        for (Counterpart cp : tmp) {
+            ret.add(cp);
+        }
+        p.setCounterparts(ret);
+
+        pS.update(p);
         return "redirect: /modifyProjet/" + p.getId();
     }
 

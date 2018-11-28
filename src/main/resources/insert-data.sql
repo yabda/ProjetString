@@ -17,3 +17,7 @@ INSERT INTO Project(id,title,description,goal,current,deadLine,createdAt,failed,
 INSERT INTO COUNTERPART(id,description,name,price,belongproject_id) VALUES (10,'Un grand merci !','Baby',5,10);
 INSERT INTO COUNTERPART(id,description,name,price,belongproject_id) VALUES (11,'Certificat de parrainage et fiche de présentation avec portrait photo de l''animal','Papa',25,10);
 INSERT INTO COUNTERPART(id,description,name,price,belongproject_id) VALUES (12,'Ramener votre panda chez vous!','Moma',500,10);
+
+INSERT INTO PROJECT_COUNTERPART(PROJECT_ID ,COUNTERPARTS_ID) VALUES (10,10);
+INSERT INTO PROJECT_COUNTERPART(PROJECT_ID ,COUNTERPARTS_ID) VALUES (10,11);
+INSERT INTO PROJECT_COUNTERPART(PROJECT_ID ,COUNTERPARTS_ID) VALUES (10,12);
