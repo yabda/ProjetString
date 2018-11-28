@@ -13,7 +13,7 @@
         <div class="container-fluid">
 
             <h1>Nouveau projet</h1>
-            <form method="POST" role="form" action="newProjet">
+            <form method="POST" role="form" action="project/new">
                 <div class="form-group">
                     <label for="projectName">Nom du projet</label>
                     <input type="text" class="form-control" id="projectName" name="projectName" placeholder="Mon projet">
