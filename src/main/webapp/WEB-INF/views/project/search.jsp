@@ -15,7 +15,7 @@
         </c:if>
         <c:if test="${!find}">
             <h2>No result for ${terms}</h2>
-            you might want to start your own project <a href="/">here</a> or look at the others available on KICKERSTART
+            you might want to start your own project <a href="/project/new">here</a> or look at the others available on KICKERSTART
         </c:if>
         <div class="container-fluid">
             <div class="row" id="front-projects">
