@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
+import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -109,7 +110,16 @@ public class UserService implements UserServiceInterface {
         }
         em.clear();
         em.merge(user);
+
         return 0;
+    }
+
+    public void updateUserSession(HttpSession session){
+
+        User u = (User)session.getAttribute("user");
+        u = getFromId(u.getId());
+        session.setAttribute("user",u);
+
     }
 
     @Override

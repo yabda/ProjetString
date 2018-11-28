@@ -2,6 +2,7 @@ package services;
 
 import beans.User;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public interface UserServiceInterface {
@@ -15,4 +16,5 @@ public interface UserServiceInterface {
 
     public User isValid(String name, String password);
     public String testName(String name);
+    public void updateUserSession(HttpSession session);
 }

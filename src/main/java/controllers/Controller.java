@@ -16,6 +16,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static java.lang.Integer.parseInt;
+
 @org.springframework.stereotype.Controller
 @RequestMapping("")
 public class Controller {
@@ -191,17 +193,24 @@ public class Controller {
 
     @RequestMapping(value = "/users/{userId}", method = RequestMethod.GET)
     public String userView(@PathVariable String userId, HttpSession session, Locale locale, Model model) {
-        if (userId.equals("me") && session.getAttribute("user") == null)
+
+        if (session.getAttribute("user") == null)
             return "redirect:/login";
-        else if (userId.equals("me") && session.getAttribute("user") != null)
-            return "/user/me";
         else {
-            User u = uS.getFromId(Integer.parseInt(userId));
-            if (u == null)
-                return "/errors/404";
-            else {
-                model.addAttribute("user", u);
-                return "/user/view";
+            if (userId.equals("me")) {
+                User majU = (User)session.getAttribute("user");
+                majU = uS.getFromId(majU.getId());
+                session.setAttribute("user",majU);
+                return "/user/me";
+            } else {
+                User majU = uS.getFromId(parseInt(userId));
+                if (majU == null) {
+                    return "/errors/404";
+                }
+                else {
+                    session.setAttribute("user",majU);
+                    return "/user/view";
+                }
             }
         }
     }
@@ -234,6 +243,8 @@ public class Controller {
         p.setBelongUser(user);
         p.setCategory(catS.getFromId(category));
         pS.insert(p);
+
+        uS.updateUserSession(session);
 
         System.out.println(p.getTitle() + p.getDescription()+p.getGoal()+p.getDeadLine()+p.getBelongUser().getName()+p.getCategory().getName());
 

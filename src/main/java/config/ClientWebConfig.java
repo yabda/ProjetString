@@ -49,7 +49,7 @@ public class ClientWebConfig extends WebMvcConfigurerAdapter {
     public DataSource dataSource() {
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
         EmbeddedDatabase db = builder
-                .setType(EmbeddedDatabaseType.H2)//.addScript("insert-data.sql") //.H2 or .DERBY
+                .setType(EmbeddedDatabaseType.H2).setScriptEncoding("UTF-8")//.addScript("insert-data.sql") //.H2 or .DERBY
 //                .addScript("db/sql/create-db.sql")
 // dans resources
                 .build();
@@ -72,6 +72,7 @@ public class ClientWebConfig extends WebMvcConfigurerAdapter {
 
     Properties additionalProperties() {
         Properties properties = new Properties();
+        properties.setProperty("characterEncoding","utf-8");
         properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
         properties.setProperty(
                 "hibernate.dialect", "org.hibernate.dialect.H2Dialect");
