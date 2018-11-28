@@ -42,8 +42,9 @@ public class CounterpartService implements CounterpartServiceInterface {
         Query q = em.createQuery("from Counterpart c where c.id = :id");
         q.setParameter("id", id);
         q.setMaxResults(1);
-        if (q.getResultList().size() > 0)
-            return (Counterpart) q.getResultList().get(0);
+        List<Counterpart> tmp = q.getResultList();
+        if (tmp.size() > 0)
+            return tmp.get(0);
         else
             return null;
     }
@@ -74,9 +75,10 @@ public class CounterpartService implements CounterpartServiceInterface {
     }
 
     @Override
-    public int destroy(int id) {
-        Query q = em.createQuery("delete Counterpart where id = :id");
-        q.setParameter("id", id);
-        return q.executeUpdate();
+    @Transactional
+    public void destroy(int counterpartId) {
+
+        Counterpart c=em.find(Counterpart.class,counterpartId);
+        em.remove(c);
     }
 }
