@@ -60,7 +60,7 @@
             <div>
 
             <h3>Contreparties</h3>
-                <form method="POST" role="form" action="/removeCounterPart">
+                <form method="POST" role="form" action="/project/removeCounterPart">
                     <div>
                         <input class="form-control" type="hidden" type="number" id="IDProjet" name="IDProjet" min="0" value=${project.getId()}>
                     </div>
