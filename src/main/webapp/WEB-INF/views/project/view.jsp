@@ -11,11 +11,10 @@
 <t:layout>
     <jsp:attribute name="header">
         <link rel="stylesheet" href="/resources/css/project.css">
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     </jsp:attribute>
 
     <jsp:attribute name="main">
-        <div class="container-fluid" style="padding-left: 200px; padding-right: 100px;">
+        <div class="container-fluid" style="padding-left: 100px; padding-right: 100px;" id="main-content">
             <div class="row"></div>
             <div class="row" id="top-panel">
                 <div class="col-md-12">
