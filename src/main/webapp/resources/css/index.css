@@ -10,16 +10,13 @@ header {
     text-align: center;
 }
 
-header h1 {
-    font-family: BigNoodleTitling, serif;
-}
-
 html {
     height: 100%;
 }
 main > div {
     background-color: aliceblue;
     padding-bottom: 25px;
+    height: 100%;
 }
 
 #front-projects {
