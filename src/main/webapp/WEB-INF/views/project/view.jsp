@@ -6,6 +6,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
+<jsp:useBean id="now" class="java.util.Date"/>
+
 <t:layout>
     <jsp:attribute name="header">
         <link rel="stylesheet" href="/resources/css/project.css">
@@ -26,8 +28,18 @@
                             <div id="text-bar" class="w3-container w3-blue w3-center" style="height:24px;width:${project.getCurrent() / project.getGoal() * 100}%">${project.getCurrent() / project.getGoal() * 100}%</div>
                         </c:if>
                     </div>
-                    <div>${project.getCurrent()} / ${project.getGoal()} €</div>
-
+                    <div id="subbar">
+                        <div id="goal">${project.getCurrent()} / ${project.getGoal()} €</div>
+                        <div id="date">
+                            <c:set var="time" scope="page" value="${now}"/>
+                            <c:if test="${time.after(project.getDeadLine())}">
+                                Time's up !
+                            </c:if>
+                            <c:if test="${!time.after(project.getDeadLine())}">
+                                ${Integer.valueOf( (project.getDeadLine().getTime() - time.getTime()) / (1000 * 60 * 60 * 24))} days left !
+                            </c:if>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row" id="mid-panel">
@@ -77,48 +89,58 @@
                 </div>
             </div>
             <div class="row"></div>
-             <div class="row" id="bottom-panel">
+            <div class="row" id="bottom-panel">
                 <div class="col-md-8 ">
-                    <H2>QUESTION ZONE</H2>
+                    <h2>Question area</h2>
                     <div>
                         <c:if test="${sessionScope.get('user').getName()!=null}">
-                        <form action="/sendMsg" method="POST">
-                            <p>
-                                Poser une question :  <input type=text name="content" />
-                                <input type="hidden" name="pId" value=${project.getId()}>
-                                <input type="submit" value="Send">
-                            </p>
+                        <form action="/sendMsg" class="form-horizontal" method="post" role="form">
+                            <div class="form-group">
+                                <label for="content">Ask something :</label>
+                                <div>
+                                    <input id="content" class="form-control" type=text min="1" name="content" placeholder="Question" required/>
+                                </div>
+                            </div>
+                            <input type="hidden" name="pId" value=${project.getId()} >
+                            <div class="form-group">
+                                <div>
+                                    <button type="submit" class="btn btn-success">Ask !</button>
+                                </div>
+                            </div>
                         </form>
                         </c:if>
                         <c:if test="${sessionScope.get('user')==null}">
-                        You must be connected to send a message
+                            <p>You must be <a href="/login">connected</a> to send a message
                         </c:if>
                     </div>
                     <c:forEach items="${project.getMessages()}" var="m">
-                        <div>
-                            Question de ${m.getBelongUser().getName()} : <br/>
-                            ${m.getContent()}
-                            <br/>
+                        <div class="message-box">
+                            <div>
+                                <strong>Question by ${m.getBelongUser().getName()}</strong> : <br/> ${m.getContent()}
+                                <br/>
+                            </div>
+                            <c:if test="${m.getBelongAnswer()!=null}">
+                                <div>
+                                    <strong>Answer</strong> : <br> ${m.getBelongAnswer().getContent()}
+                                </div>
+                            </c:if>
+                            <c:if test="${(sessionScope.get('user').getId() == project.getBelongUser().getId() && m.getBelongAnswer() == null)}">
+                                <form action="/AnswerMsg" class="form-horizontal" method="post" role="form">
+                                    <div class="form-group">
+                                        <label for="content">Ask something :</label>
+                                        <div><input id="content" class="form-control" type=text min="1" name="content" placeholder="Question" required/></div>
+                                    </div>
+                                    <input type="hidden" name="pId" value=${project.getId()} >
+                                    <input type="hidden" name="mId" value=${m.getId()} >
+                                    <div class="form-group">
+                                        <div><button type="submit" class="btn btn-success">Answer</button></div>
+                                    </div>
+                                </form>
+                            </c:if>
                         </div>
-                    <c:if test="${m.getBelongAnswer()!=null}">
-                        reponse de l'auteur :
-                        ${m.getBelongAnswer().getContent()}
-                    </c:if>
-                    <c:if test="${(sessionScope.get('user').getId() == project.getBelongUser().getId() && m.getBelongAnswer() == null)}">
-                        <form action="/AnswerMsg" method="POST">
-                            <p>
-                                <input type="hidden" name="pId" value=${project.getId()} >
-                                <input type="hidden" name="mId" value=${m.getId()} >
-                                Answer  <input type=text name="content" />
-                                <input type="submit" value="Send">
-                            </p>
-                        </form>
-                    </c:if>
-                        <br/>
-                        <br/>
-                </c:forEach>
+                    </c:forEach>
                 </div>
-             </div>
+            </div>
         </div>
     </jsp:attribute>
 </t:layout>

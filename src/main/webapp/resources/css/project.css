@@ -22,13 +22,11 @@
 #mid-panel > .col-md-8 {
     border-radius: 5px;
     background-color: #ececec;
-    padding-right: 100px;
 }
 
 #bottom-panel > .col-md-8 {
      border-radius: 5px;
      background-color: #ececec;
-     padding-right: 100px;
      margin-top : 10px;
 }
 
@@ -56,4 +54,30 @@ main a:hover {
 
 .counterpart:hover {
     background-color: #cecece;
+}
+
+#subbar {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#subbar > div{
+    display: inline;
+    font-size: 120%;
+}
+
+#subbar > #goal {
+    float: left;
+}
+
+#subbar >#date {
+    float: right;
+}
+
+.message-box {
+    border: 2px solid grey;
+    border-radius: 3px;
+    padding: 10px;
+    margin-bottom: 8px;
+    background-color: #e5e5e5;
 }
