@@ -47,9 +47,9 @@
             </c:if>
             <c:if test="${sessionScope.user != null}">
 
-                <li class="nav-item"><a href="/newProjet"><i class="nav-link fas fa-plus fa-2x"></i></a></li>
+                <li class="nav-item"><a href="/project/new"><i class="nav-link fas fa-plus fa-2x"></i></a></li>
                 <li class="nav-item"><a href="/users/me"><i class="nav-link fas fa-cogs fa-2x"></i></a></li>
-                <li class="nav-item"><a href="/myProject"><i class="nav-link fas fas fa-pen fa-2x"></i></a></li>
+                <li class="nav-item"><a href="/project/my"><i class="nav-link fas fas fa-pen fa-2x"></i></a></li>
                 <li class="nav-item"><a href="/logout"><i class="nav-link fas fa-sign-out-alt fa-2x"></i></a></li>
 
             </c:if>

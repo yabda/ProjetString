@@ -13,7 +13,7 @@
         <div class="container-fluid">
 
             <h1>Edit projet : ${project.getTitle()}</h1>
-            <form method="POST" role="form" action="project/update">
+            <form method="POST" role="form" action="/project/update">
                 <div>
                     <input class="form-control" type="hidden" type="number" id="IDProjet" name="IDProjet" min="0" value=${project.getId()}>
                 </div>

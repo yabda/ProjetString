@@ -1,5 +1,6 @@
 package services;
 
+import beans.Category;
 import beans.Project;
 import beans.User;
 import org.springframework.stereotype.Service;
@@ -76,6 +77,19 @@ public class ProjectService implements IProjectService {
         Project p = em.merge(project);
         return (p!=project?0:1);
 
+    }
+
+    @Override
+    @Transactional
+    public void update(Project p, String projectName, Category category, Date d, String description, int goal){
+
+        p.setTitle(projectName);
+        p.setCategory(category);
+        p.setDeadLine(d);
+        p.setDescription(description);
+        p.setGoal(goal);
+
+        update(p);
     }
 
     @Override

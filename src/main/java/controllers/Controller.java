@@ -22,8 +22,6 @@ import static java.lang.Integer.parseInt;
 @RequestMapping("")
 public class Controller {
 
-    private User user;
-
     @Resource(name = "projectService")
     private IProjectService pS;
 
@@ -66,10 +64,6 @@ public class Controller {
         return "index";
     }
 
-
-
-
-
     @RequestMapping(value="/login",method = RequestMethod.GET )
     public String loginGet(HttpSession session, Locale locale, Model model) {
         if (session.getAttribute("user") == null)
@@ -81,8 +75,8 @@ public class Controller {
     @RequestMapping(value="/login", method = RequestMethod.POST )
     public String login(@RequestParam("name") String name, @RequestParam("password") String password, HttpSession session, Locale locale, Model model) {
         if (uS.isValid(name, password) != null) {
-            user = uS.isValid(name, password);
-            session.setAttribute("user", user);
+            User u = uS.isValid(name, password);
+            session.setAttribute("user", u);
             return "redirect:/";
         }
         else {
@@ -94,13 +88,12 @@ public class Controller {
     @RequestMapping(value="/logout",method = RequestMethod.GET )
     public String logout(HttpSession session, Locale locale, Model model) {
         session.removeAttribute("user");
-        user = null;
         return "redirect:/";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String registerGet(HttpSession session, Locale locale, Model model) {
-        if (session.getAttribute("user") != null)
+        public String registerGet(HttpSession session, Locale locale, Model model) {
+            if (session.getAttribute("user") != null)
             return "redirect:/";
         return "user/register";
     }
@@ -122,12 +115,7 @@ public class Controller {
             return "user/register";
         }
 
-        User u = new User();
-        u.setName(name);
-        u.setPassword(password);
-        u.setCreatedAt(new Date());
-        u.setUpdatedAt(new Date());
-        uS.insert(u);
+        uS.insert(new User(name,password,new Date(),new Date()));
         return this.login(name, password, session, locale, model);
     }
 
@@ -138,17 +126,15 @@ public class Controller {
             return "redirect:/login";
         else {
             if (userId.equals("me")) {
-                User majU = (User)session.getAttribute("user");
-                majU = uS.getFromId(majU.getId());
-                session.setAttribute("user",majU);
+                uS.updateUserSession(session);
                 return "/user/me";
             } else {
-                User majU = uS.getFromId(parseInt(userId));
-                if (majU == null) {
+                User u = uS.getFromId(parseInt(userId));
+                if (u == null) {
                     return "/errors/404";
                 }
                 else {
-                    session.setAttribute("user",majU);
+                    session.setAttribute("user",u);
                     return "/user/view";
                 }
             }
@@ -169,7 +155,6 @@ public class Controller {
             User u = (User)session.getAttribute("user");
             u.setName(name);
             uS.update(u);
-            user = u;
             return "redirect:/users/me";
         }
     }

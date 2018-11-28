@@ -54,6 +54,13 @@ public class User {
         this.createdAt = new Date();
     }
 
+    public User(String name, String password, Date updatedAt, Date createdAt) {
+        this.name = name;
+        this.password = password;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
 //GETTERS & SETTERS
 
     public int getId() {

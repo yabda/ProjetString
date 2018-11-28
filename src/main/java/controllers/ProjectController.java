@@ -15,9 +15,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 @org.springframework.stereotype.Controller
@@ -43,12 +41,7 @@ public class ProjectController {
     @RequestMapping(value="{projectId}")
     public String project(@PathVariable int projectId, HttpSession session, Locale locale, Model model){
         Project p = pS.getFromId(projectId);
-        List<Counterpart> ret = new ArrayList<>();
-        List<Counterpart> tmp= cS.getFromProject(p);
-        for (Counterpart cp : tmp) {
-            ret.add(cp);
-        }
-        p.setCounterparts(ret);
+        p.setCounterparts(cS.getFromProject(p));
         model.addAttribute("project",p);
         return "project/view";
     }
@@ -60,8 +53,7 @@ public class ProjectController {
 
     @RequestMapping(value="modify/{projectId}", method = RequestMethod.GET)
     public String myproject(@PathVariable int projectId, HttpSession session, Locale locale, Model model){
-        Project p = pS.getFromId(projectId);
-        model.addAttribute("project",p);
+        model.addAttribute("project",pS.getFromId(projectId));
         model.addAttribute("categories",catS.findAll());
         return "project/modify";
     }
@@ -75,16 +67,12 @@ public class ProjectController {
     @RequestMapping(value = "new", method = RequestMethod.POST)
     public String addProject(@RequestParam("projectName") String projectName, @RequestParam("description") String description, @RequestParam("deadline") String deadline, @RequestParam("goal") int goal, @RequestParam("category") int category, HttpSession session, Locale locale, Model model) throws ParseException {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
-        Date d = sdf.parse(deadline);
+        Date d = new SimpleDateFormat("yy-MM-dd").parse(deadline);
         Project p = new Project(projectName,description,goal,d);
         p.setBelongUser((User)session.getAttribute("user"));
         p.setCategory(catS.getFromId(category));
         pS.insert(p);
-
         uS.updateUserSession(session);
-
-        System.out.println(p.getTitle() + p.getDescription()+p.getGoal()+p.getDeadLine()+p.getBelongUser().getName()+p.getCategory().getName());
 
         return "redirect: /project/new";
     }
@@ -93,37 +81,24 @@ public class ProjectController {
     public String modifyProject(@RequestParam("IDProjet") int IDProjet, @RequestParam("projectName") String projectName,@RequestParam("description") String description,@RequestParam("deadline") String deadline, @RequestParam("goal") int goal, @RequestParam("category") int category, HttpSession session, Locale locale, Model model) throws ParseException {
 
         Project p = pS.getFromId(IDProjet);
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
-        Date d = sdf.parse(deadline);
-
-        p.setTitle(projectName);
-        p.setCategory(catS.getFromId(category));
-        p.setDeadLine(d);
-        p.setDescription(description);
-        p.setGoal(goal);
-
-        pS.update(p);
-
-        p = pS.getFromId(IDProjet);
-
-        return "redirect: /project/modify" + p.getId();
+        Date d = new SimpleDateFormat("yy-MM-dd").parse(deadline);
+        pS.update(p, projectName,catS.getFromId(category),d,description,goal);
+        p = pS.getFromId(IDProjet);  //update object
+        return "redirect: /project/modify/" + p.getId();
     }
 
     @RequestMapping(value = "addCounterPart", method = RequestMethod.POST)
     public String addCounterPart(@RequestParam("IDProjet") int IDProjet,@RequestParam("cpName") String cpName,@RequestParam("cpDescription") String cpDescription, @RequestParam("price") int price, HttpSession session, Locale locale, Model model) throws ParseException {
         Project p = pS.getFromId(IDProjet);
-        System.out.println(cpName+cpDescription+price);
-        Counterpart c=new Counterpart(price,cpName,cpDescription);
+        Counterpart c = new Counterpart(price,cpName,cpDescription);
         c.setBelongProjet(p);
         cS.insert(c);
-        return "redirect: /project/modify" + p.getId();
+        return "redirect: /project/modify/" + p.getId();
     }
 
     @RequestMapping(value = "answerMsg", method = RequestMethod.POST)
     public String answerMsg(@RequestParam("mId") int mId,@RequestParam("pId") int pId,@RequestParam("content") String content,HttpSession session, Locale locale, Model model){
         Project p = pS.getFromId(pId);
-        User u = (User)session.getAttribute("user");
         Message m = mS.getFromId(mId);
         mS.answerMsg(p,content,m);
         model.addAttribute("project",p);
@@ -154,6 +129,4 @@ public class ProjectController {
         model.addAttribute("project",p);
         return "redirect:/project/"+p.getId();
     }
-
-
 }
