@@ -19,18 +19,18 @@
     box-shadow: 10px 5px 5px darkgray;
 }
 
-#mid-panel > .col-md-8 {
+#mid-panel {
     border-radius: 5px;
     background-color: #ececec;
 }
 
-#bottom-panel > .col-md-8 {
+#bottom-panel {
      border-radius: 5px;
      background-color: #ececec;
      margin-top : 10px;
 }
 
-#mid-panel > .col-md-3 {
+#side-panel {
     border-radius: 5px;
     background-color: #ececec;
 }

@@ -42,103 +42,119 @@
                     </div>
                 </div>
             </div>
-            <div class="row" id="mid-panel">
+            <div class="row">
                 <div class="col-md-8">
-                    <h2>Description</h2>
-                    <p>${project.getDescription()}</p>
-                    <h2>Supporters</h2>
-                    <ul>
-                        <c:forEach items="${project.getUsersParticipation()}" var="helpers">
-                            <li>${helpers.getName()} : ${project.getParticipations().get(helpers.getId())}€</li>
-                        </c:forEach>
-                    </ul>
-                </div>
-                <div class="col-md-1"></div>
-                    <div class="col-md-3">
-                    <h2>Pledge</h2>
-                    <c:forEach items="${project.getCounterparts()}" var="counterpart">
-                        <div class="counterpart" onclick="$('#donationValue').val(${counterpart.getPrice()});">
-                            <h3>Pledge of ${counterpart.getPrice()}€ or more</h3>
-                            <h4>${counterpart.getName()}</h4>
-                            <p>${counterpart.getDescription()}</p>
-                        </div>
-                    </c:forEach>
-                    <c:if test="${sessionScope.get('user') != null}">
-                        <div class="donate">
-                            <form class="form-horizontal" method="post" role="form" action="/donation">
-                                <div class="form-group">
-                                    <label for="donationValue">Donation :</label>
-                                    <input type="hidden" name="pId" value=${project.getId()} >
-                                    <div>
-                                        <input id="donationValue" class="form-control" type=number min="1" name="donationValue" placeholder="Amount" required value="1"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div>
-                                        <button type="submit" class="btn btn-success">Donate</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </c:if>
-                    <c:if test="${sessionScope.get('user') == null}">
-                        <div class="donate">
-                            <p>You must be <a href="/login">connected</a> to pledge</p>
-                        </div>
-                    </c:if>
-                </div>
-            </div>
-            <div class="row"></div>
-            <div class="row" id="bottom-panel">
-                <div class="col-md-8 ">
-                    <h2>Question area</h2>
-                    <div>
-                        <c:if test="${sessionScope.get('user').getName()!=null}">
-                        <form action="/sendMsg" class="form-horizontal" method="post" role="form">
-                            <div class="form-group">
-                                <label for="content">Ask something :</label>
-                                <div>
-                                    <input id="content" class="form-control" type=text min="1" name="content" placeholder="Question" required/>
-                                </div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12" id="mid-panel">
+                                <h2>Description</h2>
+                                <p>${project.getDescription()}</p>
+                                <h2>Supporters</h2>
+                                <ul>
+                                    <c:forEach items="${project.getUsersParticipation()}" var="helpers">
+                                        <li>${helpers.getName()} : ${project.getParticipations().get(helpers.getId())}€</li>
+                                    </c:forEach>
+                                </ul>
                             </div>
-                            <input type="hidden" name="pId" value=${project.getId()} >
-                            <div class="form-group">
+                        </div>
+                        <div class="row"></div>
+                        <div class="row" id="bottom-panel">
+                            <div class="col-md-12">
+                                <h2>Question area</h2>
                                 <div>
-                                    <button type="submit" class="btn btn-success">Ask !</button>
+                                    <c:if test="${sessionScope.get('user').getName()!=null}">
+                                        <form action="/sendMsg" class="form-horizontal" method="post" role="form">
+                                            <div class="form-group">
+                                                <label for="content">Ask something :</label>
+                                                <div>
+                                                    <input id="content" class="form-control" type=text min="1" name="content" placeholder="Question" required/>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="pId" value=${project.getId()} >
+                                            <div class="form-group">
+                                                <div>
+                                                    <button type="submit" class="btn btn-success">Ask !</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </c:if>
+                                    <c:if test="${sessionScope.get('user')==null}">
+                                        <p>You must be <a href="/login">connected</a> to send a message</p>
+                                    </c:if>
                                 </div>
+                                <c:forEach items="${project.getMessages()}" var="m">
+                                    <div class="message-box">
+                                        <div>
+                                            <strong>Question by ${m.getBelongUser().getName()}</strong> : <br/> ${m.getContent()}
+                                            <br/>
+                                        </div>
+                                        <c:if test="${m.getBelongAnswer()!=null}">
+                                            <div>
+                                                <strong>Answer</strong> : <br> ${m.getBelongAnswer().getContent()}
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${(sessionScope.get('user').getId() == project.getBelongUser().getId() && m.getBelongAnswer() == null)}">
+                                            <form action="/AnswerMsg" class="form-horizontal" method="post" role="form">
+                                                <div class="form-group">
+                                                    <label for="content">Answer something :</label>
+                                                    <div><input id="content" class="form-control" type=text min="1" name="content" placeholder="Question" required/></div>
+                                                </div>
+                                                <input type="hidden" name="pId" value=${project.getId()} >
+                                                <input type="hidden" name="mId" value=${m.getId()} >
+                                                <div class="form-group">
+                                                    <div><button type="submit" class="btn btn-success">Answer</button></div>
+                                                </div>
+                                            </form>
+                                        </c:if>
+                                    </div>
+                                </c:forEach>
                             </div>
-                        </form>
-                        </c:if>
-                        <c:if test="${sessionScope.get('user')==null}">
-                            <p>You must be <a href="/login">connected</a> to send a message
-                        </c:if>
+                        </div>
                     </div>
-                    <c:forEach items="${project.getMessages()}" var="m">
-                        <div class="message-box">
-                            <div>
-                                <strong>Question by ${m.getBelongUser().getName()}</strong> : <br/> ${m.getContent()}
-                                <br/>
+                </div>
+
+                <div class="col-md-1"></div>
+
+                <div class="col-md-3">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12" id="side-panel">
+                                <h2>Pledge</h2>
+                                <c:forEach items="${project.getCounterparts()}" var="counterpart">
+                                    <div class="counterpart" onclick="$('#donationValue').val(${counterpart.getPrice()});">
+                                        <h3>Pledge of ${counterpart.getPrice()}€ or more</h3>
+                                        <h4>${counterpart.getName()}</h4>
+                                        <p>${counterpart.getDescription()}</p>
+                                    </div>
+                                </c:forEach>
+                                <c:if test="${!time.after(project.getDeadLine())}">
+                                    <c:if test="${sessionScope.get('user') != null}">
+                                        <div class="donate">
+                                            <form class="form-horizontal" method="post" role="form" action="/donation">
+                                                <div class="form-group">
+                                                    <label for="donationValue">Donation :</label>
+                                                    <input type="hidden" name="pId" value=${project.getId()} >
+                                                    <div>
+                                                        <input id="donationValue" class="form-control" type=number min="1" name="donationValue" placeholder="Amount" required value="1"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div>
+                                                        <button type="submit" class="btn btn-success">Donate</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </c:if>
+                                    <c:if test="${sessionScope.get('user') == null}">
+                                        <div class="donate">
+                                            <p>You must be <a href="/login">connected</a> to pledge</p>
+                                        </div>
+                                    </c:if>
+                                </c:if>
                             </div>
-                            <c:if test="${m.getBelongAnswer()!=null}">
-                                <div>
-                                    <strong>Answer</strong> : <br> ${m.getBelongAnswer().getContent()}
-                                </div>
-                            </c:if>
-                            <c:if test="${(sessionScope.get('user').getId() == project.getBelongUser().getId() && m.getBelongAnswer() == null)}">
-                                <form action="/AnswerMsg" class="form-horizontal" method="post" role="form">
-                                    <div class="form-group">
-                                        <label for="content">Ask something :</label>
-                                        <div><input id="content" class="form-control" type=text min="1" name="content" placeholder="Question" required/></div>
-                                    </div>
-                                    <input type="hidden" name="pId" value=${project.getId()} >
-                                    <input type="hidden" name="mId" value=${m.getId()} >
-                                    <div class="form-group">
-                                        <div><button type="submit" class="btn btn-success">Answer</button></div>
-                                    </div>
-                                </form>
-                            </c:if>
                         </div>
-                    </c:forEach>
+                    </div>
                 </div>
             </div>
         </div>
