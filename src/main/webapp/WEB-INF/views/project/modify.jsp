@@ -60,13 +60,22 @@
             </form>
 
             <div>
+
             <h3>Contreparties</h3>
-                <c:forEach items="${project.getCounterparts()}" var="counterpart">
-                    <h3>${counterpart.getName()}</h3>
-                    <p>${counterpart.getDescription()}</p>
-                    <p>${counterpart.getGoal()}</p>
-                </c:forEach>
+                <form method="POST" role="form" action="/project/removeCounterPart">
+                    <div>
+                        <input class="form-control" type="hidden" type="number" id="IDProjet" name="IDProjet" min="0" value=${project.getId()}>
+                    </div>
+                    <ul>
+                        <c:forEach items="${project.getCounterparts()}" var="counterpart">
+
+                                <li><input type="radio" name="CP" value="${counterpart.getId()}">${counterpart.getName()}, ${counterpart.getPrice()} €</li>
+                        </c:forEach>
+                     </ul>
+                    <button class="btn btn-danger" type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                </form>
             </div>
+
             <h3>Ajouter une contrepartie</h3>
             <div>
                 <form method="POST" role="form" action="/project/addCounterPart">

@@ -86,8 +86,8 @@ public class Controller {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-        public String registerGet(HttpSession session, Locale locale, Model model) {
-            if (session.getAttribute("user") != null)
+    public String registerGet(HttpSession session, Locale locale, Model model) {
+        if (session.getAttribute("user") != null)
             return "redirect:/";
         return "user/register";
     }
@@ -152,4 +152,9 @@ public class Controller {
             return "redirect:/users/me";
         }
     }
+
+
+
+
+
 }

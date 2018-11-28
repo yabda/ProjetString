@@ -12,7 +12,7 @@ public interface ICounterpartService {
     void insert(Counterpart t);
     Counterpart getFromId(int id);
     int update(Counterpart t);
-    int destroy(int id);
+    void destroy(int counterpartId);
 
     List<Counterpart> getFromProject(Project p);
 }
