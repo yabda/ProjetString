@@ -54,6 +54,7 @@
 
 .counterpart:hover {
     background-color: #cecece;
+    cursor: pointer;
 }
 
 #subbar {
