@@ -7,6 +7,7 @@
 
 <t:layout>
     <jsp:attribute name="header">
+        <link rel="stylesheet" href="/resources/css/myProject.css">
     </jsp:attribute>
     <jsp:attribute name="main">
         <div class="container-fluid" style="padding-left: 100px; padding-right: 100px;">
@@ -51,10 +52,10 @@
                 <c:forEach items="${allProj}" var="p">
 
                     <a class="linkProject" href="/project/${p.getId()}">
-                        <li class="aProject">
+                        <div class="aProject">
                             <h3 class="titleProjet">${p.getTitle()}</h3>
                             <p>${p.getDescription()}</p>
-                        </li>
+                        </div>
                     </a>
                 </c:forEach>
                 </div>
