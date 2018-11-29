@@ -10,6 +10,8 @@
 <t:layout>
     <jsp:attribute name="header">
         <link rel="stylesheet" href="/resources/css/projetX.css">
+        <link rel="stylesheet" href="/resources/css/projetX.css">
+
     </jsp:attribute>
     <jsp:attribute name="main">
         <div class="container-fluid">
