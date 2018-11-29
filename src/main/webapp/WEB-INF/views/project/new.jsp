@@ -1,4 +1,3 @@
-<%@ page import="java.text.SimpleDateFormat" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -12,22 +11,23 @@
         <link rel="stylesheet" href="/resources/css/projetX.css">
     </jsp:attribute>
     <jsp:attribute name="main">
-        <div class="container-fluid">
-
-            <h1>Nouveau projet ${now}</h1>
-            <form method="POST" role="form" action="/project/new">
-                <div class="form-group">
-                    <label for="projectName">Nom du projet</label>
-                    <input type="text" class="form-control" id="projectName" name="projectName" placeholder="Mon projet">
-                </div>
-
-                <div class="form-group">
-                    <label for="deadline">Fin du projet</label>
-                    <input class="form-control" type="date" id="deadline" name="deadline" min=${today}>
-
-                    <label for="goal">Objectif</label>
-                    <input class="form-control" type="number" id="goal" name="goal" min="0">
-                </div>
+        <div class="container-fluid" style="padding-left: 100px; padding-right: 100px;">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>New project</h1>
+                    <form method="POST" role="form" action="/project/new">
+                        <div class="form-group">
+                            <label for="projectName">Name of project</label>
+                            <input type="text" class="form-control" id="projectName" name="projectName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="deadline">Deadline</label>
+                            <input class="form-control" type="date" id="deadline" name="deadline" min="${now}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="goal">Goal</label>
+                            <input class="form-control" type="number" id="goal" name="goal" min="0" required>
+                        </div>
 
                 <div class="form-group">
                     <label for="categorie">Categorie</label>
