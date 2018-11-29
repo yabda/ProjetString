@@ -52,9 +52,10 @@ public class Controller {
 
     @RequestMapping(value="/",method = RequestMethod.GET)
     public String index(HttpSession session, Locale locale, Model model) {
-
+        List<Project> allproj = pS.findAll();
         List<Project> frontProjects = pS.findAll(3);
         model.addAttribute("frontProjects", frontProjects);
+        model.addAttribute("allProj", allproj);
         return "index";
     }
 

@@ -49,7 +49,7 @@ public class ProjectController {
 
     @RequestMapping(value = "my", method = RequestMethod.GET)
     public String myProject(HttpSession session, Locale locale, Model model) {
-        if (session.getAttribute("User")!=null)
+        if (session.getAttribute("user")!=null)
             return "project/my";
         return "redirect: /";
     }
