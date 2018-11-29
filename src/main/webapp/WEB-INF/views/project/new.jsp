@@ -1,10 +1,11 @@
+<%@ page import="java.util.Calendar" %>
+<%@ page import="java.util.Date" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<jsp:useBean id="now" class="java.util.Date"/>
 
 <t:layout>
     <jsp:attribute name="header">
@@ -22,7 +23,7 @@
                         </div>
                         <div class="form-group">
                             <label for="deadline">Deadline</label>
-                            <input class="form-control" type="date" id="deadline" name="deadline" min="${now}" required>
+                            <input class="form-control" type="date" id="deadline" name="deadline" required>
                         </div>
                         <div class="form-group">
                             <label for="goal">Goal</label>
@@ -47,6 +48,21 @@
 
         </div>
 
+    <script type="application/javascript">
+        function setMinMaxTime(){
+            var dt = new Date();
+            var dt2 = new Date();
+            dt2.setMonth(dt.getMonth()+2);
+            var time = dt.getFullYear() + "-" + dt.getMonth() + "-" + dt.getDate();
+            var time2 = dt2.getFullYear() + "-" + dt2.getMonth() + "-" + dt2.getDate();
+            $("#deadline").attr({
+                "max" : time2,        // substitute your own
+                "min" : time          // values (or variables) here
+            });
+        }
+        setMinMaxTime();
+    </script>
     </jsp:attribute>
+
 </t:layout>
 
