@@ -52,12 +52,9 @@
 
                     <a class="linkProject" href="/project/${p.getId()}">
                         <li class="aProject">
-
                             <h3 class="titleProjet">${p.getTitle()}</h3>
                             <p>${p.getDescription()}</p>
-
                         </li>
-
                     </a>
                 </c:forEach>
                 </div>
