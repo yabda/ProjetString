@@ -7,6 +7,10 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <jsp:useBean id="now" class="java.util.Date"/>
+<jsp:useBean id="decimal" class="java.text.DecimalFormat"/>
+<%
+    decimal.setMaximumFractionDigits(2);
+%>
 
 <t:layout>
     <jsp:attribute name="header">
@@ -21,10 +25,10 @@
                     <h1 id="title-project">${project.getTitle()}</h1>
                     <div class="w3-light-grey">
                         <c:if test="${project.getCurrent() > project.getGoal()}">
-                            <div id="text-bar" class="w3-container w3-blue w3-center" style="height:24px;width:100.0%">${project.getCurrent() / project.getGoal() * 100}%</div>
+                            <div id="text-bar" class="w3-container w3-blue w3-center" style="height:24px;width:100.0%">${decimal.format(project.getCurrent() / project.getGoal() * 100)}%</div>
                         </c:if>
                         <c:if test="${project.getCurrent() <= project.getGoal()}">
-                            <div id="text-bar" class="w3-container w3-blue w3-center" style="height:24px;width:${project.getCurrent() / project.getGoal() * 100}%">${project.getCurrent() / project.getGoal() * 100}%</div>
+                            <div id="text-bar" class="w3-container w3-blue w3-center" style="height:24px;width:${project.getCurrent() / project.getGoal() * 100}%">${decimal.format(project.getCurrent() / project.getGoal() * 100)}%</div>
                         </c:if>
                     </div>
                     <div id="subbar">

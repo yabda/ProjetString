@@ -10,28 +10,25 @@
         <link rel="stylesheet" href="/resources/css/myProject.css">
     </jsp:attribute>
     <jsp:attribute name="main">
-
-        <div class="myProjects">
-            <h3>My Projects</h3>
-            <ul class="listeProject">
-
-                <c:forEach items="${user.getCreatedProjects()}" var="p">
-
-                    <a class="linkProject" href="/project/modify/${p.getId()}">
-                        <li class="aProject">
-
-                            <h3 class="titleProjet">${p.getTitle()}</h3>
-                            <p>${p.getDescription()}</p>
-
-                        </li>
-
-                    </a>
-
-
-                </c:forEach>
-            </ul>
+        <div class="container-fluid" style="padding-left: 100px; padding-right: 100px;">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="myProjects">
+                        <h3>My Projects</h3>
+                        <ul class="listeProject">
+                        <c:forEach items="${user.getCreatedProjects()}" var="p">
+                            <a class="linkProject" href="/project/modify/${p.getId()}">
+                                <li class="aProject">
+                                    <h3 class="titleProjet">${p.getTitle()}</h3>
+                                    <p>${p.getDescription()}</p>
+                                </li>
+                            </a>
+                        </c:forEach>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-
     </jsp:attribute>
 </t:layout>
 

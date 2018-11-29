@@ -29,6 +29,10 @@ main > div {
     border-radius: 10px;
 }
 
+.carousel-item {
+    margin: auto;
+}
+
 .carousel-item > div > a{
     font-size: 5rem;
     color: white;
@@ -36,6 +40,7 @@ main > div {
 
 .carousel-item > div > a > h2 {
     font-size: inherit;
+    margin: auto;
 }
 
 .carousel-item > div > a:hover {
