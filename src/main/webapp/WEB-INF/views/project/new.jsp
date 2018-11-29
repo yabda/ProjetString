@@ -1,3 +1,4 @@
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -13,7 +14,7 @@
     <jsp:attribute name="main">
         <div class="container-fluid">
 
-            <h1>Nouveau projet</h1>
+            <h1>Nouveau projet ${now}</h1>
             <form method="POST" role="form" action="/project/new">
                 <div class="form-group">
                     <label for="projectName">Nom du projet</label>
@@ -22,7 +23,7 @@
 
                 <div class="form-group">
                     <label for="deadline">Fin du projet</label>
-                    <input class="form-control" type="date" id="deadline" name="deadline" min="${now}">
+                    <input class="form-control" type="date" id="deadline" name="deadline" min=${today}>
 
                     <label for="goal">Objectif</label>
                     <input class="form-control" type="number" id="goal" name="goal" min="0">
