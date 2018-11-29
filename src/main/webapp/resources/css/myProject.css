@@ -1,0 +1,35 @@
+
+.myProjects {
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.listeProject {
+    list-style-type: none;
+    width: 500px;
+}
+
+.titleProjet {
+    font: bold 25px/1.5 Helvetica, Verdana, sans-serif;
+}
+
+.aProject p {
+    font: 200 17px/1.5 Georgia, Times New Roman, serif;
+}
+
+.aProject {
+    padding: 10px;
+    overflow: auto;
+}
+
+.aProject:hover {
+    background: #6495ed;
+    cursor: pointer;
+    color: white;
+    border-radius: 8px;
+
+}
+
+.linkProject:hover{
+    text-decoration: none;
+}

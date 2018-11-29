@@ -7,29 +7,29 @@
 
 <t:layout>
     <jsp:attribute name="header">
-        <link rel="stylesheet" href="/resources/css/projetX.css">
+        <link rel="stylesheet" href="/resources/css/myProject.css">
     </jsp:attribute>
     <jsp:attribute name="main">
-        <div class="container-fluid">
 
-            <div id="my-projects">
-                <h3>My Projects</h3>
-                <div class="container-fluid">
-                    <c:set var="i" scope="page" value="0"/>
-                    <c:forEach items="${user.getCreatedProjects()}" var="p">
-                            <c:if test="${i % 4 == 0}">
-                                <div class="row">
-                            </c:if>
-                            <div class="col-md-3">
-                                <a href="/project/modify/${p.getId()}"><h4>${p.getTitle()}</h4></a>
-                            </div>
-                            <c:set var="i" scope="page" value="${i + 1}"/>
-                            <c:if test="${i % 4 == 0}">
-                                </div>
-                            </c:if>
-                        </c:forEach>
-                    <c:if test="${i % 4 != 0}"></div></c:if>
-            </div>
+        <div class="myProjects">
+            <h3>My Projects</h3>
+            <ul class="listeProject">
+
+                <c:forEach items="${user.getCreatedProjects()}" var="p">
+
+                    <a class="linkProject" href="/project/modify/${p.getId()}">
+                        <li class="aProject">
+
+                            <h3 class="titleProjet">${p.getTitle()}</h3>
+                            <p>${p.getDescription()}</p>
+
+                        </li>
+
+                    </a>
+
+
+                </c:forEach>
+            </ul>
         </div>
 
     </jsp:attribute>
