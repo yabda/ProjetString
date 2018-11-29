@@ -115,7 +115,6 @@ public class Controller {
 
     @RequestMapping(value = "/users/{userId}", method = RequestMethod.GET)
     public String userView(@PathVariable String userId, HttpSession session, Locale locale, Model model) {
-
         if (session.getAttribute("user") == null)
             return "redirect:/login";
         else {
@@ -152,9 +151,4 @@ public class Controller {
             return "redirect:/users/me";
         }
     }
-
-
-
-
-
 }
