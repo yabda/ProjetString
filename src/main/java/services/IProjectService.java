@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface IProjectService extends ICRUDService<Project> {
 
-    int donation(User u, Project p, int val);
+    void donation(User u, Project p, int val);
     List<Project> search(String terms);
     void update(Project p, String projectName, Category category, Date d, String description, int goal);
 }

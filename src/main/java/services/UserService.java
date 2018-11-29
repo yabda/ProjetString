@@ -35,25 +35,29 @@ public class UserService implements IUserService {
     @Override
     public void insert(User user) {
         MessageDigest md = null;
-        System.out.println("pass before sha : "+user.getPassword());
         try {
             md = MessageDigest.getInstance("SHA-1");
         }
         catch(NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        byte[] result = md.digest(user.getPassword().getBytes());
+        byte[] result = md.digest(user.getPassword().getBytes());                   // hash the password before sending it to DB
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < result.length; i++) {
             sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
         }
 
         user.setPassword(sb.toString());
-        System.out.println("pass de "+user.getId()+" sha : "+user.getPassword());
-
         em.persist(user);
     }
 
+    /*
+    * Check if user credentials are valid
+    * @Param String name : username
+    * @Param String password : user password
+    *
+    * @Return authenticated user if valid, null otherwise
+    * */
     public User isValid(String name, String password) {
         MessageDigest md = null;
         try {
@@ -70,6 +74,13 @@ public class UserService implements IUserService {
         return null;
     }
 
+    /*
+    * Check if a username is free and follow name policies
+    *
+    * @param String name : username to check
+    *
+    * @Return Error message if there is one, null otherwise
+    * */
     public String testName(String name) {
         if (name.isEmpty())
             return "Empty name";
@@ -97,7 +108,7 @@ public class UserService implements IUserService {
 
     @Override
     @Transactional
-    public int update(User user) {
+    public void update(User user) {
         MessageDigest md = null;
         try {
             md = MessageDigest.getInstance("SHA-1");
@@ -107,10 +118,13 @@ public class UserService implements IUserService {
         }
         em.clear();
         em.merge(user);
-
-        return 0;
     }
 
+    /*
+    * Update object "user" in session to reflect changes in DB
+    *
+    * @Param HttpSession session : session to update
+    * */
     public void updateUserSession(HttpSession session){
 
         User u = (User)session.getAttribute("user");
@@ -120,9 +134,9 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public int destroy(int id) {
+    public void destroy(int id) {
         Query q = em.createQuery("delete User u where u.id = :id");
         q.setParameter("id", id);
-        return q.executeUpdate();
+        q.executeUpdate();
     }
 }

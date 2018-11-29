@@ -11,7 +11,7 @@ public interface ICounterpartService {
 
     void insert(Counterpart t);
     Counterpart getFromId(int id);
-    int update(Counterpart t);
+    void update(Counterpart t);
     void destroy(int counterpartId);
 
     List<Counterpart> getFromProject(Project p);

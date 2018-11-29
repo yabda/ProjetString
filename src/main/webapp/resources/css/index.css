@@ -19,28 +19,28 @@ main > div {
     height: 100%;
 }
 
-#front-projects {
-    padding-top: 15px;
-}
-
-#front-projects > div > div {
+.carousel {
     text-align: center;
-    background-color: darkgoldenrod;
+    background-color: #807e7b;
+    height: 300px;
+    width: 500px;
+    margin: 15px auto;
+    border: cadetblue 2px solid;
+    border-radius: 10px;
 }
 
-#front-projects > div > div:hover {
-    text-align: center;
-    background-color: #fff926;
-}
-
-#front-projects > div > div > a > h2 {
+.carousel-item > div > a{
     font-size: 5rem;
-    color: black;
+    color: white;
 }
 
-#front-projects > div > div > a:hover {
+.carousel-item > div > a > h2 {
+    font-size: inherit;
+}
+
+.carousel-item > div > a:hover {
     text-decoration: none;
-    color: black;
+    color: #dcf3eb;
 }
 
 hr {

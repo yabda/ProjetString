@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface ICategoryService {
     List<Category> findAll();
-    public Category getFromId(int id);
+    Category getFromId(int id);
 }
