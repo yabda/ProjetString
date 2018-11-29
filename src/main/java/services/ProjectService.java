@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service("projectService")
@@ -72,10 +73,8 @@ public class ProjectService implements IProjectService {
 
     @Override
     @Transactional
-    public int update(Project project) {
-        Project p = em.merge(project);
-        return (p!=project?0:1);
-
+    public void update(Project project) {
+        em.merge(project);
     }
 
     @Override
@@ -92,10 +91,10 @@ public class ProjectService implements IProjectService {
     }
 
     @Override
-    public int destroy(int id) {
+    public void destroy(int id) {
         Query q = em.createQuery("delete Project where id = :id");
         q.setParameter("id", id);
-        return q.executeUpdate();
+        q.executeUpdate();
     }
 
 
@@ -110,13 +109,13 @@ public class ProjectService implements IProjectService {
     * */
     @Override
     @Transactional
-    public int donation(User u, Project p, int val){
-        if (val <=0 || p.getDeadLine().after(new Date())|| u ==null){
+    public void donation(User u, Project p, int val){
+        if (val <=0 || p.getDeadLine().after(new Date())|| u ==null){               // project still ongoing and valid user
             p.setCurrent(p.getCurrent()+val);                                       //update current project amount
             Map<Integer,Float> participations = p.getParticipations();
             if (participations.containsKey(u.getId())){                             //Update total donation amount if already in participant
                 participations.replace(u.getId(),(participations.get(u.getId())+val));
-            }else{                                                                  //if first donation by this user add him to needed list
+            }else{                                                                  //if first donation by this user add him to needed lists
                 Set<User> userParticipation = p.getUsersParticipation();
                 userParticipation.add(u);
                 p.setUsersParticipation(userParticipation);
@@ -134,10 +133,6 @@ public class ProjectService implements IProjectService {
             p.setParticipations(participations);
 
             update(p);
-            return 1;
-        }
-        else {
-            return -1;  // null donation or project already over
         }
     }
 }

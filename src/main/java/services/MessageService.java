@@ -61,34 +61,37 @@ public class MessageService implements IMessageService {
 
     @Override
     @Transactional
-    public int update(Message user) {
+    public void update(Message user) {
         em.clear();
         em.merge(user);
-        return 0;
     }
 
     @Override
-    public int destroy(int id) {
+    public void destroy(int id) {
         Query q = em.createQuery("delete Message m where m.id = :id");
         q.setParameter("id", id);
-        return q.executeUpdate();
+        q.executeUpdate();
     }
 
+
+    /*
+    * Send a message to a project
+    * @Param User u : sender
+    * @Param Project p : project the message has been send to
+    * @Param String content : content of the message
+    *
+    * */
     @Override
-    public int sendMsg(User u, Project p, String content){
+    public void sendMsg(User u, Project p, String content){
         Message m = new Message(u,p,content);
 
         List<Message> messP =  p.getMessages();
         messP.add(m);
-        for (Message me:p.getMessages()) {
-            System.out.println(me.getContent());
-        }
         p.setMessages(messP);
         pS.update(p);
-        return 1;
     }
 
-    public int answerMsg(Project p, String content, Message m){
+    public void answerMsg(Project p, String content, Message m){
         User u = p.getBelongUser();
         Answer a = new Answer(content,m,u);
         Set<Answer> ans = u.getAnswers();
@@ -97,9 +100,6 @@ public class MessageService implements IMessageService {
         m.setBelongAnswer(a);
         update(m);
         uS.update(u);
-        System.out.println("response : "+m.getBelongAnswer().getContent() + "link to "+m.getId());
-
-        return 1;
     }
 
 }

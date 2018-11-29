@@ -62,7 +62,7 @@ public class CounterpartService implements ICounterpartService {
     }
 
     @Override
-    public int update(Counterpart counterpart) {
+    public void update(Counterpart counterpart) {
         Query q = em.createQuery("update Counterpart c set c.price = :price , c.name = :name , c.description = :description" +
                 " where c.id = :id");
         q.setParameter("id", counterpart.getId());
@@ -70,7 +70,7 @@ public class CounterpartService implements ICounterpartService {
         q.setParameter("name", counterpart.getName());
         q.setParameter("description", counterpart.getDescription());
 
-        return q.executeUpdate();
+        q.executeUpdate();
     }
 
     @Override

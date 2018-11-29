@@ -11,10 +11,10 @@ public interface IUserService {
 
     void insert(User t);
     User getFromId(int id);
-    int update(User t);
-    int destroy(int id);
+    void update(User t);
+    void destroy(int id);
 
-    public User isValid(String name, String password);
-    public String testName(String name);
-    public void updateUserSession(HttpSession session);
+    User isValid(String name, String password);
+    String testName(String name);
+    void updateUserSession(HttpSession session);
 }
