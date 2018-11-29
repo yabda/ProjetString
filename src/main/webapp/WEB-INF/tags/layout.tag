@@ -29,7 +29,6 @@
         <div class="row">
             <div class="col-md-12">
                 <a href="/"><img class="img-responsive" src="/resources/images/logo.png"></a>
-                <h1>A kick in your projects' butt</h1>
             </div>
         </div>
     </div>
