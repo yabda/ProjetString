@@ -15,10 +15,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @org.springframework.stereotype.Controller
 @RequestMapping("/project/")
@@ -68,6 +65,16 @@ public class ProjectController {
 
             model.addAttribute("project", p);
             model.addAttribute("categories", catS.findAll());
+            Date d = new Date();
+            Date d2 = new Date();
+            Calendar c = Calendar.getInstance();
+            c.add(Calendar.DATE, 1);
+            d = c.getTime();
+            c = Calendar.getInstance();
+            c.add(Calendar.MONTH, 2);
+            d2 = c.getTime();
+            model.addAttribute("today", new SimpleDateFormat("yyyy-MM-dd").format(d));
+            model.addAttribute("todayPlus2Month", new SimpleDateFormat("yyyy-MM-dd").format(d2));
             return "project/modify";
         }
 
@@ -80,7 +87,15 @@ public class ProjectController {
         if(session.getAttribute("user")!=null) {
             model.addAttribute("categories", catS.findAll());
             Date d = new Date();
-            model.addAttribute("today", new SimpleDateFormat("yy-MM-dd").format(d));
+            Date d2 = new Date();
+            Calendar c = Calendar.getInstance();
+            c.add(Calendar.DATE, 1);
+            d = c.getTime();
+            c = Calendar.getInstance();
+            c.add(Calendar.MONTH, 2);
+            d2 = c.getTime();
+            model.addAttribute("today", new SimpleDateFormat("yyyy-MM-dd").format(d));
+            model.addAttribute("todayPlus2Month", new SimpleDateFormat("yyyy-MM-dd").format(d2));
             return "project/new";
         }
         return "redirect: /";

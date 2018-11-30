@@ -27,7 +27,7 @@
 
                         <div class="form-group">
                             <label for="deadline">Deadline</label>
-                            <input class="form-control" type="date" id="deadline" name="deadline" min=${now} required value=${project.getDeadLine()}>
+                            <input class="form-control" type="date" id="deadline" name="deadline" min=${today} max=${todayPlus2Month} required value=${project.getDeadLine()}>
                         </div>
                         <div class="form-group">
                             <label for="goal">Goal</label>

@@ -10,6 +10,7 @@
 <t:layout>
     <jsp:attribute name="header">
         <link rel="stylesheet" href="/resources/css/projetX.css">
+
     </jsp:attribute>
     <jsp:attribute name="main">
         <div class="container-fluid" style="padding-left: 100px; padding-right: 100px;">
@@ -23,7 +24,7 @@
                         </div>
                         <div class="form-group">
                             <label for="deadline">Deadline</label>
-                            <input class="form-control" type="date" id="deadline" name="deadline" required>
+                            <input class="form-control" type="date" id="deadline" name="deadline" min=${today} max=${todayPlus2Month} required>
                         </div>
                         <div class="form-group">
                             <label for="goal">Goal</label>
@@ -47,21 +48,6 @@
             </form>
 
         </div>
-
-    <script type="application/javascript">
-        function setMinMaxTime(){
-            var dt = new Date();
-            var dt2 = new Date();
-            dt2.setMonth(dt.getMonth()+2);
-            var time = dt.getFullYear() + "-" + dt.getMonth() + "-" + dt.getDate();
-            var time2 = dt2.getFullYear() + "-" + dt2.getMonth() + "-" + dt2.getDate();
-            $("#deadline").attr({
-                "max" : time2,        // substitute your own
-                "min" : time          // values (or variables) here
-            });
-        }
-        setMinMaxTime();
-    </script>
     </jsp:attribute>
 
 </t:layout>
